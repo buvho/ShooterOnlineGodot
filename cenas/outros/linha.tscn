@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dte7hwwfp1i46"]
+
+[ext_resource type="Script" path="res://cenas/outros/linha.gd" id="1_7d37d"]
+
+[node name="Linha" type="Line2D"]
+z_index = -1
+width = 2.0
+default_color = Color(0.505344, 0.505344, 0.505344, 1)
+script = ExtResource("1_7d37d")

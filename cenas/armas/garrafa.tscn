@@ -1,0 +1,166 @@
+[gd_scene load_steps=8 format=3 uid="uid://dllgk2i3s5alt"]
+
+[ext_resource type="Script" path="res://scripts/Scenes/garrafa.gd" id="1_jt55o"]
+[ext_resource type="Texture2D" uid="uid://cmccb3jek3ifh" path="res://textures/armas/Coca.png" id="2_q7xko"]
+[ext_resource type="AudioStream" uid="uid://b0yx1ywc452m7" path="res://Resources/Arroto.mp3" id="4_0cegc"]
+[ext_resource type="AudioStream" uid="uid://dk4afs01lk7u3" path="res://Resources/glup.mp3" id="4_70wet"]
+
+[sub_resource type="Animation" id="Animation_d77kj"]
+resource_name = "Garrafa"
+length = 3.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("beber:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Arroto:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.83333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.36667, 1.83333),
+"transitions": PackedFloat32Array(0.5, 0.450625, 1),
+"update": 0,
+"values": [0.0, -1.0472, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CPUParticles2D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.366667, 1.36667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_c1vcp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Arroto:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("beber:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CPUParticles2D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_maov0"]
+_data = {
+"Garrafa": SubResource("Animation_d77kj"),
+"RESET": SubResource("Animation_c1vcp")
+}
+
+[node name="Garrafa" type="Node2D"]
+script = ExtResource("1_jt55o")
+rotate_item = true
+id = 1
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(0.590866, -9.46786)
+rotation = -2.35619
+emitting = false
+amount = 15
+lifetime_randomness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(2, 1)
+gravity = Vector2(0, 98)
+initial_velocity_min = 2.0
+initial_velocity_max = 2.0
+angular_velocity_min = 1.0
+angular_velocity_max = 2.0
+tangential_accel_min = 10.0
+tangential_accel_max = 10.0
+scale_amount_max = 4.0
+color = Color(0.105882, 0.00392157, 0, 1)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(3, -3)
+rotation = -0.30656
+texture = ExtResource("2_q7xko")
+
+[node name="Hp1" type="Node2D" parent="Sprite"]
+position = Vector2(6.15373, -0.0873892)
+
+[node name="Hp2" type="Node2D" parent="Sprite"]
+position = Vector2(-4.88897, 10.8335)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_maov0")
+}
+
+[node name="beber" type="AudioStreamPlayer2D" parent="."]
+rotation = -1.0472
+stream = ExtResource("4_70wet")
+
+[node name="Arroto" type="AudioStreamPlayer2D" parent="."]
+rotation = -1.0472
+stream = ExtResource("4_0cegc")
+volume_db = 10.0
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -1,0 +1,98 @@
+[gd_scene load_steps=9 format=4 uid="uid://cxcuf7sebvpj5"]
+
+[ext_resource type="Script" path="res://scripts/Scenes/spawner.gd" id="1_jaqfu"]
+[ext_resource type="PackedScene" uid="uid://bnnpguuu0553p" path="res://cenas/cara.tscn" id="2_ax2ei"]
+[ext_resource type="Texture2D" uid="uid://b2cti1k6cyhd4" path="res://textures/paredes/tileset.png" id="3_ei4f6"]
+[ext_resource type="PackedScene" uid="uid://bqac3rnk713ml" path="res://cenas/props/colectable_item.tscn" id="3_w3dbm"]
+[ext_resource type="PackedScene" uid="uid://c7o1mf3rtxdkl" path="res://cenas/armas/bastão.tscn" id="5_qhwx5"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4p64w"]
+texture = ExtResource("3_ei4f6")
+texture_region_size = Vector2i(256, 256)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-128, -128, 128, -128, 128, 128, -128, 128)
+1:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_i48yr"]
+tile_size = Vector2i(256, 256)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_4p64w")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qtxpa"]
+bg_color = Color(0.327841, 0.243735, 0.173242, 1)
+
+[node name="World" type="Node2D"]
+
+[node name="Spawner" type="Node2D" parent="."]
+position = Vector2(3004, 2661)
+script = ExtResource("1_jaqfu")
+player_scene = ExtResource("2_ax2ei")
+
+[node name="Mapa" type="Node2D" parent="."]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Mapa"]
+tile_map_data = PackedByteArray("AAAAAAwAAAAAAAAAAAABAAwAAAAAAAAAAAACAAwAAAAAAAAAAAADAAwAAAAAAAAAAAAEAAwAAAAAAAAAAAAFAAwAAAAAAAAAAAAGAAwAAAAAAAAAAAAHAAwAAAAAAAAAAAAIAAwAAAAAAAAAAAAJAAwAAAAAAAAAAAAKAAwAAAAAAAAAAAALAAwAAAAAAAAAAAAMAAwAAAAAAAAAAAANAAwAAAAAAAAAAAAOAAwAAAAAAAAAAAAPAAwAAAAAAAAAAAAQAAwAAAAAAAAAAAARAAwAAAAAAAAAAAASAAwAAAAAAAAAAAATAAwAAAAAAAAAAAAUAAwAAAAAAAAAAAAVAAwAAAAAAAAAAAAWAAwAAAAAAAAAAAAWAA0AAAAAAAAAAAAVAA0AAAAAAAAAAAAUAA0AAAAAAAAAAAATAA0AAAAAAAAAAAASAA0AAAAAAAAAAAARAA0AAAAAAAAAAAAQAA0AAAAAAAAAAAAPAA0AAAAAAAAAAAAOAA0AAAAAAAAAAAANAA0AAAAAAAAAAAAMAA0AAAAAAAAAAAALAA0AAAAAAAAAAAAKAA0AAAAAAAAAAAAJAA0AAAAAAAAAAAAIAA0AAAAAAAAAAAAHAA0AAAAAAAAAAAAGAA0AAAAAAAAAAAAFAA0AAAAAAAAAAAAEAA0AAAAAAAAAAAADAA0AAAAAAAAAAAACAA0AAAAAAAAAAAABAA0AAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA4AAAAAAAAAAAABAA4AAAAAAAAAAAACAA4AAAAAAAAAAAADAA4AAAAAAAAAAAAEAA4AAAAAAAAAAAAFAA4AAAAAAAAAAAAGAA4AAAAAAAAAAAAHAA4AAAAAAAAAAAAIAA4AAAAAAAAAAAAJAA4AAAAAAAAAAAAKAA4AAAAAAAAAAAALAA4AAAAAAAAAAAAMAA4AAAAAAAAAAAANAA4AAAAAAAAAAAAOAA4AAAAAAAAAAAAPAA4AAAAAAAAAAAAQAA4AAAAAAAAAAAARAA4AAAAAAAAAAAASAA4AAAAAAAAAAAATAA4AAAAAAAAAAAAUAA4AAAAAAAAAAAAVAA4AAAAAAAAAAAAWAA4AAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_i48yr")
+
+[node name="Colectable_Item" parent="Mapa" instance=ExtResource("3_w3dbm")]
+position = Vector2(5304, 2825)
+itemSC = ExtResource("5_qhwx5")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -294.0
+offset_top = -43.0
+offset_right = 6125.0
+offset_bottom = 3606.0
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qtxpa")
+
+[node name="Container" type="VBoxContainer" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -828.5
+offset_top = -639.5
+offset_right = -664.5
+offset_bottom = -468.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(10, 10)
+
+[node name="Join" type="Button" parent="Control/Panel/Container"]
+layout_mode = 2
+text = "Join Game
+"
+
+[node name="Host" type="Button" parent="Control/Panel/Container"]
+layout_mode = 2
+text = "Host
+"
+
+[node name="Ip" type="TextEdit" parent="Control/Panel/Container"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+placeholder_text = "IP
+"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://cenas/cara.tscn")
+spawn_path = NodePath("../Spawner")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(2899, 1746)
+zoom = Vector2(0.2, 0.2)
+
+[connection signal="pressed" from="Control/Panel/Container/Join" to="Spawner" method="_on_join_pressed"]
+[connection signal="pressed" from="Control/Panel/Container/Host" to="Spawner" method="_on_host_pressed"]

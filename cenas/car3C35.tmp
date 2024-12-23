@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://bnnpguuu0553p"]
+
+[ext_resource type="Script" path="res://scripts/Scenes/cara.gd" id="1_1je04"]
+[ext_resource type="Texture2D" uid="uid://clroevcjysjye" path="res://textures/player/cara.png" id="1_csa5w"]
+[ext_resource type="Texture2D" uid="uid://cxh1epdod6hor" path="res://textures/player/Mão.png" id="2_gc23o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xk66n"]
+size = Vector2(343, 281)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5knuc"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("ItemPlace:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("ItemPlace:scale")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_akh6o"]
+font_size = 32
+
+[node name="Cara" type="CharacterBody2D"]
+script = ExtResource("1_1je04")
+gravity = 100
+jump_force = -4000
+speed = 1000
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_xk66n")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_csa5w")
+
+[node name="Hands" type="Node2D" parent="Sprite"]
+
+[node name="H1" type="Sprite2D" parent="Sprite/Hands"]
+position = Vector2(-227, 58)
+texture = ExtResource("2_gc23o")
+
+[node name="H2" type="Sprite2D" parent="Sprite/Hands"]
+position = Vector2(228, 58)
+texture = ExtResource("2_gc23o")
+
+[node name="ItemPlace" type="Node2D" parent="."]
+position = Vector2(732, 289)
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(480, 171)
+enabled = false
+zoom = Vector2(0.2, 0.2)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_5knuc")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -148.0
+offset_top = -205.0
+offset_right = 154.0
+offset_bottom = -160.0
+text = "Ola
+"
+label_settings = SubResource("LabelSettings_akh6o")

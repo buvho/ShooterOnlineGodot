@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://cit7rx2i8c23t"]
+
+[ext_resource type="Script" path="res://scripts/Scenes/grapling_hook.gd" id="1_2od1t"]
+[ext_resource type="Texture2D" uid="uid://qju4rm13o40v" path="res://textures/armas/Grapling Hook/Grapling Hook.png" id="2_qw2bl"]
+[ext_resource type="Texture2D" uid="uid://cxh1epdod6hor" path="res://textures/player/Mão.png" id="3_fjfuq"]
+[ext_resource type="AudioStream" uid="uid://b0yx1ywc452m7" path="res://Resources/Arroto.mp3" id="5_8gwqg"]
+
+[node name="Grapling Hook" type="Node2D"]
+position = Vector2(2, 1)
+script = ExtResource("1_2od1t")
+rotate_item = true
+id = 2
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(76, -66)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_qw2bl")
+
+[node name="Hand1" type="Sprite2D" parent="."]
+position = Vector2(92, -33)
+scale = Vector2(0.994116, 0.98235)
+texture = ExtResource("3_fjfuq")
+
+[node name="Hand2" type="Sprite2D" parent="."]
+position = Vector2(2, -12)
+texture = ExtResource("3_fjfuq")
+
+[node name="Arroto" type="AudioStreamPlayer2D" parent="."]
+rotation = -1.0472
+stream = ExtResource("5_8gwqg")
+volume_db = 10.0
+
+[node name="Ponto" type="Node2D" parent="."]
+position = Vector2(172, -90)

@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://bnnpguuu0553p"]
+
+[ext_resource type="Script" path="res://scripts/Scenes/cara.gd" id="1_1je04"]
+[ext_resource type="Texture2D" uid="uid://clroevcjysjye" path="res://textures/player/cara.png" id="1_csa5w"]
+[ext_resource type="Texture2D" uid="uid://cxh1epdod6hor" path="res://textures/player/Mão.png" id="2_gc23o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xk66n"]
+size = Vector2(341, 282)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5knuc"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Cara" type="CharacterBody2D"]
+script = ExtResource("1_1je04")
+GRAVITY = 20
+JUMP_FORCE = -2000
+MOVE_SPEED = 500
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(469, 208)
+texture = ExtResource("1_csa5w")
+
+[node name="Maos" type="Node2D" parent="Sprite"]
+
+[node name="mao" type="Sprite2D" parent="Sprite/Maos"]
+position = Vector2(-227, 58)
+texture = ExtResource("2_gc23o")
+
+[node name="mao2" type="Sprite2D" parent="Sprite/Maos"]
+position = Vector2(228, 58)
+texture = ExtResource("2_gc23o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(469.5, 209)
+shape = SubResource("RectangleShape2D_xk66n")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_5knuc")
+
+[node name="Camera2D2" type="Camera2D" parent="."]
+position = Vector2(480, 171)
+enabled = false
+zoom = Vector2(0.2, 0.2)

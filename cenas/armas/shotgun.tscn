@@ -1,0 +1,107 @@
+[gd_scene load_steps=12 format=3 uid="uid://dxi763kc5ax4w"]
+
+[ext_resource type="Script" path="res://cenas/armas/gun.gd" id="1_mbros"]
+[ext_resource type="Texture2D" uid="uid://b2mx6inapbmdb" path="res://textures/armas/Shotgunshoots.png" id="2_n2kud"]
+[ext_resource type="AudioStream" uid="uid://b1y83un0dul6b" path="res://Resources/Shotgun.mp3" id="3_ig1me"]
+[ext_resource type="Texture2D" uid="uid://n1063pnu4h3j" path="res://textures/armas/Shot_itempng.png" id="3_uuwi7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p2seq"]
+atlas = ExtResource("2_n2kud")
+region = Rect2(0, 0, 45, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qdsh8"]
+atlas = ExtResource("2_n2kud")
+region = Rect2(45, 0, 45, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_02g3o"]
+atlas = ExtResource("2_n2kud")
+region = Rect2(90, 0, 45, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_46etx"]
+atlas = ExtResource("2_n2kud")
+region = Rect2(135, 0, 45, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4dkb"]
+atlas = ExtResource("2_n2kud")
+region = Rect2(180, 0, 45, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_spp2f"]
+atlas = ExtResource("2_n2kud")
+region = Rect2(225, 0, 45, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ccf0t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p2seq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qdsh8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_02g3o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_46etx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4dkb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_spp2f")
+}],
+"loop": false,
+"name": &"Use",
+"speed": 10.0
+}]
+
+[node name="Shotgun" type="Node2D"]
+script = ExtResource("1_mbros")
+dano = 34
+audio_file = ExtResource("3_ig1me")
+pitchmin = 0.8
+pitchmax = 1.2
+rotate_item = true
+id = 4
+texture = ExtResource("3_uuwi7")
+
+[node name="Raycasts" type="Node2D" parent="."]
+position = Vector2(19.8712, 0.264626)
+
+[node name="RayCast" type="RayCast2D" parent="Raycasts"]
+target_position = Vector2(100, 0)
+collision_mask = 5
+hit_from_inside = true
+
+[node name="RayCast2" type="RayCast2D" parent="Raycasts"]
+target_position = Vector2(95, 15)
+collision_mask = 5
+hit_from_inside = true
+
+[node name="RayCast3" type="RayCast2D" parent="Raycasts"]
+target_position = Vector2(95, -15)
+collision_mask = 5
+hit_from_inside = true
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(5.4018, 1.80533)
+sprite_frames = SubResource("SpriteFrames_ccf0t")
+animation = &"Use"
+frame = 5
+frame_progress = 1.0
+
+[node name="Hp1" type="Sprite2D" parent="Sprite"]
+position = Vector2(5.29424, 0.0730715)
+scale = Vector2(1.24264, 1.22794)
+
+[node name="Hp2" type="Sprite2D" parent="Sprite"]
+position = Vector2(-7.26591, 0.724283)
+scale = Vector2(1.25, 1.25)
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="."]
+rotation = -1.0472
+stream = ExtResource("3_ig1me")
+volume_db = 10.0
+
+[connection signal="animation_finished" from="Sprite" to="." method="anim_over"]

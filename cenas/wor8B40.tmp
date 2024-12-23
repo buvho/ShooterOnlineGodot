@@ -1,0 +1,153 @@
+[gd_scene load_steps=10 format=4 uid="uid://cxcuf7sebvpj5"]
+
+[ext_resource type="Script" path="res://scripts/Scenes/spawner.gd" id="1_jaqfu"]
+[ext_resource type="PackedScene" uid="uid://bnnpguuu0553p" path="res://cenas/cara.tscn" id="2_ax2ei"]
+[ext_resource type="Texture2D" uid="uid://b2cti1k6cyhd4" path="res://textures/paredes/tileset.png" id="3_ei4f6"]
+[ext_resource type="PackedScene" uid="uid://bqac3rnk713ml" path="res://cenas/props/collectable_item.tscn" id="3_w3dbm"]
+[ext_resource type="Script" path="res://cenas/control.gd" id="5_5sqs1"]
+[ext_resource type="Texture2D" uid="uid://clroevcjysjye" path="res://textures/player/cara.png" id="5_vopyy"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4p64w"]
+texture = ExtResource("3_ei4f6")
+texture_region_size = Vector2i(256, 256)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-128, -128, 128, -128, 128, 128, -128, 128)
+1:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_i48yr"]
+tile_size = Vector2i(256, 256)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_4p64w")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qtxpa"]
+bg_color = Color(0.327841, 0.243735, 0.173242, 1)
+
+[node name="World" type="Node2D"]
+
+[node name="Spawner" type="Node2D" parent="."]
+position = Vector2(3004, 2661)
+script = ExtResource("1_jaqfu")
+player_scene = ExtResource("2_ax2ei")
+
+[node name="Mapa" type="Node2D" parent="."]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Mapa"]
+tile_map_data = PackedByteArray("AAAAAAwAAAAAAAAAAAABAAwAAAAAAAAAAAACAAwAAAAAAAAAAAADAAwAAAAAAAAAAAAEAAwAAAAAAAAAAAAFAAwAAAAAAAAAAAAGAAwAAAAAAAAAAAAHAAwAAAAAAAAAAAAIAAwAAAAAAAAAAAAJAAwAAAAAAAAAAAAKAAwAAAAAAAAAAAALAAwAAAAAAAAAAAAMAAwAAAAAAAAAAAANAAwAAAAAAAAAAAAOAAwAAAAAAAAAAAAPAAwAAAAAAAAAAAAQAAwAAAAAAAAAAAARAAwAAAAAAAAAAAASAAwAAAAAAAAAAAATAAwAAAAAAAAAAAAUAAwAAAAAAAAAAAAVAAwAAAAAAAAAAAAWAAwAAAAAAAAAAAAWAA0AAAAAAAAAAAAVAA0AAAAAAAAAAAAUAA0AAAAAAAAAAAATAA0AAAAAAAAAAAASAA0AAAAAAAAAAAARAA0AAAAAAAAAAAAQAA0AAAAAAAAAAAAPAA0AAAAAAAAAAAAOAA0AAAAAAAAAAAANAA0AAAAAAAAAAAAMAA0AAAAAAAAAAAALAA0AAAAAAAAAAAAKAA0AAAAAAAAAAAAJAA0AAAAAAAAAAAAIAA0AAAAAAAAAAAAHAA0AAAAAAAAAAAAGAA0AAAAAAAAAAAAFAA0AAAAAAAAAAAAEAA0AAAAAAAAAAAADAA0AAAAAAAAAAAACAA0AAAAAAAAAAAABAA0AAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA4AAAAAAAAAAAABAA4AAAAAAAAAAAACAA4AAAAAAAAAAAADAA4AAAAAAAAAAAAEAA4AAAAAAAAAAAAFAA4AAAAAAAAAAAAGAA4AAAAAAAAAAAAHAA4AAAAAAAAAAAAIAA4AAAAAAAAAAAAJAA4AAAAAAAAAAAAKAA4AAAAAAAAAAAALAA4AAAAAAAAAAAAMAA4AAAAAAAAAAAANAA4AAAAAAAAAAAAOAA4AAAAAAAAAAAAPAA4AAAAAAAAAAAAQAA4AAAAAAAAAAAARAA4AAAAAAAAAAAASAA4AAAAAAAAAAAATAA4AAAAAAAAAAAAUAA4AAAAAAAAAAAAVAA4AAAAAAAAAAAAWAA4AAAAAAAAAAAAXAAwAAAAAAAAAAAAXAA0AAAAAAAAAAAAXAA4AAAAAAAAAAAAYAA4AAAAAAAAAAAAZAA4AAAAAAAAAAAAaAA4AAAAAAAAAAAAbAA4AAAAAAAAAAAAbAA0AAAAAAAAAAAAcAA0AAAAAAAAAAAAcAAwAAAAAAAAAAAAbAAwAAAAAAAAAAAAaAAwAAAAAAAAAAAAZAAwAAAAAAAAAAAAYAAwAAAAAAAAAAAAYAA0AAAAAAAAAAAAZAA0AAAAAAAAAAAAaAA0AAAAAAAAAAAAdAA0AAAAAAAAAAAAeAA0AAAAAAAAAAAAdAAwAAAAAAAAAAAAeAAwAAAAAAAAAAAAfAAwAAAAAAAAAAAAgAAwAAAAAAAAAAAAhAAwAAAAAAAAAAAAgAA0AAAAAAAAAAAAfAA0AAAAAAAAAAAAhAA0AAAAAAAAAAAAiAA0AAAAAAAAAAAAiAAwAAAAAAAAAAAAjAAwAAAAAAAAAAAAkAAwAAAAAAAAAAAAkAA0AAAAAAAAAAAAjAA0AAAAAAAAAAAAgAA4AAAAAAAAAAAAfAA4AAAAAAAAAAAAeAA4AAAAAAAAAAAAdAA4AAAAAAAAAAAAcAA4AAAAAAAAAAAAhAA4AAAAAAAAAAAAiAA4AAAAAAAAAAAAjAA4AAAAAAAAAAAAkAA4AAAAAAAAAAAD//wwAAAAAAAAAAAD+/wwAAAAAAAAAAAD9/wwAAAAAAAAAAAD8/wwAAAAAAAAAAAD7/wwAAAAAAAAAAAD7/w4AAAAAAAAAAAD8/w4AAAAAAAAAAAD9/w4AAAAAAAAAAAD+/w4AAAAAAAAAAAD//w4AAAAAAAAAAAD//w0AAAAAAAAAAAD+/w0AAAAAAAAAAAD9/w0AAAAAAAAAAAD8/w0AAAAAAAAAAAD7/w0AAAAAAAAAAADx/w0AAAAAAAAAAADx/w4AAAAAAAAAAADx/wwAAAAAAAAAAADx/wsAAAAAAAAAAADx/woAAAAAAAAAAADx/wkAAAAAAAAAAADx/wgAAAAAAAAAAADx/wcAAAAAAAAAAADx/wYAAAAAAAAAAADx/wUAAAAAAAAAAADx/wQAAAAAAAAAAADx/wMAAAAAAAAAAADx/wIAAAAAAAAAAADx/wEAAAAAAAAAAADx/wAAAAAAAAAAAAAlAAwAAAAAAAAAAAAlAA0AAAAAAAAAAAAlAA4AAAAAAAAAAAAsAA0AAAAAAAAAAAAsAA4AAAAAAAAAAAAsAAwAAAAAAAAAAAAsAAsAAAAAAAAAAAAsAAoAAAAAAAAAAAAsAAkAAAAAAAAAAAAsAAgAAAAAAAAAAAAsAAcAAAAAAAAAAAAsAAYAAAAAAAAAAAAsAAUAAAAAAAAAAAAsAAAAAAAAAAAAAAAsAAEAAAAAAAAAAAAsAAIAAAAAAAAAAAAsAAMAAAAAAAAAAAAsAAQAAAAAAAAAAADx/w8AAAAAAAAAAADx/xAAAAAAAAAAAADx/xEAAAAAAAAAAADx/xIAAAAAAAAAAADx/xMAAAAAAAAAAADx/xQAAAAAAAAAAADx/xUAAAAAAAAAAADx/xYAAAAAAAAAAADx/xcAAAAAAAAAAADx/xgAAAAAAAAAAADx/xkAAAAAAAAAAADx/xoAAAAAAAAAAADx/xsAAAAAAAAAAADx/xwAAAAAAAAAAADx/x0AAAAAAAAAAADx/x4AAAAAAAAAAADy/x4AAAAAAAAAAADz/x4AAAAAAAAAAAD0/x4AAAAAAAAAAAD1/x4AAAAAAAAAAAD2/x4AAAAAAAAAAAD3/x4AAAAAAAAAAAD4/x4AAAAAAAAAAAD5/x4AAAAAAAAAAAD6/x4AAAAAAAAAAAD7/x4AAAAAAAAAAAD8/x4AAAAAAAAAAAD9/x4AAAAAAAAAAAD+/x4AAAAAAAAAAAD//x4AAAAAAAAAAAAAAB4AAAAAAAAAAAABAB4AAAAAAAAAAAACAB4AAAAAAAAAAAADAB4AAAAAAAAAAAAEAB4AAAAAAAAAAAAFAB4AAAAAAAAAAAAGAB4AAAAAAAAAAAAHAB4AAAAAAAAAAAAIAB4AAAAAAAAAAAAJAB4AAAAAAAAAAAAKAB4AAAAAAAAAAAALAB4AAAAAAAAAAAAMAB4AAAAAAAAAAAANAB4AAAAAAAAAAAAOAB4AAAAAAAAAAAAPAB4AAAAAAAAAAAAQAB4AAAAAAAAAAAARAB4AAAAAAAAAAAASAB4AAAAAAAAAAAATAB4AAAAAAAAAAAAUAB4AAAAAAAAAAAAVAB4AAAAAAAAAAAAWAB4AAAAAAAAAAAAXAB4AAAAAAAAAAAAYAB4AAAAAAAAAAAAZAB4AAAAAAAAAAAAaAB4AAAAAAAAAAAAbAB4AAAAAAAAAAAAcAB4AAAAAAAAAAAAdAB4AAAAAAAAAAAAeAB4AAAAAAAAAAAAfAB4AAAAAAAAAAAAgAB4AAAAAAAAAAAAhAB4AAAAAAAAAAAAiAB4AAAAAAAAAAAAjAB4AAAAAAAAAAAAkAB4AAAAAAAAAAAAlAB4AAAAAAAAAAAAmAB4AAAAAAAAAAAAnAB4AAAAAAAAAAAAoAB4AAAAAAAAAAAApAB4AAAAAAAAAAAAqAB4AAAAAAAAAAAArAB4AAAAAAAAAAAAsAA8AAAAAAAAAAAAsABAAAAAAAAAAAAAsABEAAAAAAAAAAAAsABIAAAAAAAAAAAAsABMAAAAAAAAAAAAsABQAAAAAAAAAAAAsABUAAAAAAAAAAAAsABYAAAAAAAAAAAAsABcAAAAAAAAAAAAsABgAAAAAAAAAAAAsABkAAAAAAAAAAAAsABoAAAAAAAAAAAAsABsAAAAAAAAAAAAsABwAAAAAAAAAAAAsAB0AAAAAAAAAAAAsAB4AAAAAAAAAAAD5/w0AAAAAAAAAAAD5/wwAAAAAAAAAAAD5/w4AAAAAAAAAAAD6/w4AAAAAAAAAAAD6/w0AAAAAAAAAAAD6/wwAAAAAAAAAAAApABEAAAAAAAAAAAAmABYAAAAAAAAAAAAjABsAAAAAAAAAAAD0/xEAAAAAAAAAAAD3/xYAAAAAAAAAAAD7/xsAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_i48yr")
+
+[node name="Colectable_Item" parent="Mapa" instance=ExtResource("3_w3dbm")]
+position = Vector2(5304, 2825)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -294.0
+offset_top = -43.0
+offset_right = 6125.0
+offset_bottom = 3606.0
+script = ExtResource("5_5sqs1")
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1778.0
+offset_top = -1148.0
+offset_right = 1694.0
+offset_bottom = 1300.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qtxpa")
+
+[node name="PlayerEdit" type="Control" parent="Control/Panel"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="<" type="Button" parent="Control/Panel/PlayerEdit"]
+layout_mode = 0
+offset_left = 6164.0
+offset_top = 2708.0
+offset_right = 6318.0
+offset_bottom = 3065.0
+theme_override_font_sizes/font_size = 256
+text = "<
+"
+
+[node name="PanelContainer" type="PanelContainer" parent="Control/Panel/PlayerEdit"]
+layout_mode = 0
+offset_left = 6391.0
+offset_top = 2462.0
+offset_right = 6847.0
+offset_bottom = 2903.0
+scale = Vector2(2, 2)
+
+[node name="TextureRect" type="TextureRect" parent="Control/Panel/PlayerEdit/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("5_vopyy")
+stretch_mode = 4
+
+[node name=">" type="Button" parent="Control/Panel/PlayerEdit"]
+layout_mode = 0
+offset_left = 7368.0
+offset_top = 2709.0
+offset_right = 7522.0
+offset_bottom = 3066.0
+theme_override_font_sizes/font_size = 256
+text = ">"
+
+[node name="Container" type="VBoxContainer" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -879.5
+offset_top = -686.5
+offset_right = 940.5
+offset_bottom = 522.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Join" type="Button" parent="Control/Panel/Container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 256
+text = "Join Game
+"
+
+[node name="Host" type="Button" parent="Control/Panel/Container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 256
+text = "Host
+"
+
+[node name="Ip" type="TextEdit" parent="Control/Panel/Container"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+placeholder_text = "IP
+
+"
+
+[node name="BoxContainer" type="BoxContainer" parent="Control/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(2899, 1746)
+zoom = Vector2(0.2, 0.2)
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://cenas/cara.tscn")
+spawn_path = NodePath("../Spawner")
+
+[connection signal="pressed" from="Control/Panel/PlayerEdit/<" to="Control" method="_on_left_pressed"]
+[connection signal="pressed" from="Control/Panel/Container/Join" to="Spawner" method="_on_join_pressed"]
+[connection signal="pressed" from="Control/Panel/Container/Host" to="Spawner" method="_on_host_pressed"]

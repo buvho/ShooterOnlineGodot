@@ -1,0 +1,120 @@
+[gd_scene load_steps=14 format=3 uid="uid://cr7hk2ietgkkj"]
+
+[ext_resource type="Script" path="res://cenas/armas/Sniper.gd" id="1_5ff5w"]
+[ext_resource type="AudioStream" uid="uid://46kipk22f43d" path="res://Resources/Sniper.mp3" id="2_a21p4"]
+[ext_resource type="Texture2D" uid="uid://dk1qyif1ljcbe" path="res://textures/armas/sniper_item.png" id="2_mxctn"]
+[ext_resource type="Texture2D" uid="uid://c7roa4a87lrls" path="res://textures/armas/Sniper-sheet.png" id="3_vr4vn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hlj38"]
+atlas = ExtResource("3_vr4vn")
+region = Rect2(0, 0, 150, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ay0nn"]
+atlas = ExtResource("3_vr4vn")
+region = Rect2(150, 0, 150, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_niyio"]
+atlas = ExtResource("3_vr4vn")
+region = Rect2(300, 0, 150, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ti2bt"]
+atlas = ExtResource("3_vr4vn")
+region = Rect2(450, 0, 150, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4saj"]
+atlas = ExtResource("3_vr4vn")
+region = Rect2(600, 0, 150, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rge3h"]
+atlas = ExtResource("3_vr4vn")
+region = Rect2(750, 0, 150, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xka01"]
+atlas = ExtResource("3_vr4vn")
+region = Rect2(900, 0, 150, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fvodk"]
+atlas = ExtResource("3_vr4vn")
+region = Rect2(1050, 0, 150, 72)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cewgu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hlj38")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ay0nn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_niyio")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ti2bt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4saj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rge3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xka01")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_fvodk")
+}],
+"loop": false,
+"name": &"Use",
+"speed": 12.0
+}]
+
+[node name="Sniper" type="Node2D"]
+position = Vector2(0, 9)
+script = ExtResource("1_5ff5w")
+dano = 100
+audio_file = ExtResource("2_a21p4")
+pitchmax = 1.2
+linetime = 2.0
+rotate_item = true
+id = 5
+texture = ExtResource("2_mxctn")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(33, -18)
+sprite_frames = SubResource("SpriteFrames_cewgu")
+animation = &"Use"
+
+[node name="Hp1" type="Sprite2D" parent="Sprite"]
+position = Vector2(-27, 15)
+scale = Vector2(2.10833, -5.56532)
+
+[node name="Hp2" type="Sprite2D" parent="Sprite"]
+position = Vector2(-52, 19)
+scale = Vector2(1.25, 1.25)
+
+[node name="Lazer" type="Node2D" parent="."]
+position = Vector2(33, -5)
+
+[node name="RayCast" type="RayCast2D" parent="Lazer"]
+target_position = Vector2(800, 0)
+collision_mask = 5
+hit_from_inside = true
+
+[node name="Line2D" type="Line2D" parent="Lazer"]
+z_index = -2
+points = PackedVector2Array(0, 0, 0, 0)
+width = 1.0
+default_color = Color(0.764706, 0, 0, 0.509804)
+
+[node name="Raycasts" type="Node2D" parent="."]
+position = Vector2(18.057, 0)
+
+[node name="RayCast" type="RayCast2D" parent="Raycasts"]
+position = Vector2(14.943, -5)
+target_position = Vector2(800, 0)
+collision_mask = 5
+hit_from_inside = true
+
+[connection signal="animation_finished" from="Sprite" to="." method="anim_over"]

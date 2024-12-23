@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://uxvs82heh0am"]
+
+[ext_resource type="Texture2D" uid="uid://cfacjnje5vrii" path="res://textures/armas/Grapling Hook/Hook.png" id="1_cavqs"]
+[ext_resource type="Script" path="res://cenas/armas/hook.gd" id="1_mqe3y"]
+
+[node name="Grappling" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 3
+gravity_scale = 0.5
+inertia = 10.0
+contact_monitor = true
+max_contacts_reported = 3
+script = ExtResource("1_mqe3y")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_cavqs")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-5.96046e-08, 0)
+scale = Vector2(0.0629707, 0.0628377)
+polygon = PackedVector2Array(-33, 24, -65, 72, -64, 104, -16, 104, 32, 55, 64, 8, 64, -7, 31, -56, -17, -105, -64, -104, -64, -74, -32, -24, -32, -24)
+
+[node name="Ponto" type="Node2D" parent="."]
+position = Vector2(-4, 0)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
