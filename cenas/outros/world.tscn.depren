@@ -90,32 +90,26 @@ tile_set = SubResource("TileSet_u4a1q")
 
 [node name="Collectable_Item" parent="Mapa" instance=ExtResource("7_6o5q8")]
 position = Vector2(451, 289)
-infinite = true
+itemID = 0
 
 [node name="Collectable_Item2" parent="Mapa" instance=ExtResource("7_6o5q8")]
 position = Vector2(507, 290)
-item_id = 1
-infinite = true
 
 [node name="Collectable_Item3" parent="Mapa" instance=ExtResource("7_6o5q8")]
 position = Vector2(562, 290)
-item_id = 2
-infinite = true
+itemID = 2
 
 [node name="Collectable_Item4" parent="Mapa" instance=ExtResource("7_6o5q8")]
 position = Vector2(619, 287)
-item_id = 3
-infinite = true
+itemID = 3
 
 [node name="Collectable_Item5" parent="Mapa" instance=ExtResource("7_6o5q8")]
 position = Vector2(691, 285)
-item_id = 4
-infinite = true
+itemID = 4
 
 [node name="Collectable_Item6" parent="Mapa" instance=ExtResource("7_6o5q8")]
 position = Vector2(765, 287)
-item_id = 5
-infinite = true
+itemID = 5
 
 [node name="Spawn" type="Node2D" parent="Mapa"]
 position = Vector2(38, 256)
@@ -236,10 +230,6 @@ placeholder_text = "IP"
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-
-[node name="MultiplayerSpawner2" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://cenas/props/dropped_item.tscn")
-spawn_path = NodePath("../Mapa")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://cenas/outros/cara.tscn")

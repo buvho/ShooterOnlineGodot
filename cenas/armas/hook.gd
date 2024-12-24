@@ -9,6 +9,6 @@ func _on_body_entered(body):
 	if body is TileMapLayer:
 		call_deferred("set_freeze", true)
 		call_deferred("set_process_mode", PROCESS_MODE_DISABLED)
-		emit_signal("foi")
+		foi.emit()
 func set_freeze(value):
 	freeze = value

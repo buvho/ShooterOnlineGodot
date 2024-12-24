@@ -14,7 +14,7 @@ func use():
 		var Alvo = rayCast.get_collider()
 		criarLinha(rayCast)
 		if Alvo is Cara:
-			Alvo.MudarVida(-dano)
+			Alvo.mudar_vida(-dano)
 			Alvo.knockback(rayCast.global_position,knockback)
 	gun_use()
 	

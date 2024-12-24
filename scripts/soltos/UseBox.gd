@@ -8,4 +8,4 @@ func _on_body_exited(body):
 	if body is Cara:
 		body.remove_UseBox(self)
 func use(_cara : Cara):
-	print("usado")
+	pass

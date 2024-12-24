@@ -39,7 +39,7 @@ func _on_host_pressed():
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	multiplayer.multiplayer_peer = peer
 	$"../StartGame".visible = true
-	emit_signal("hide_ui")
+	hide_ui.emit()
 	add_player(1)
 func _on_join_pressed():
 	peer = ENetMultiplayerPeer.new()
@@ -69,7 +69,7 @@ func receive_game_status(status):
 		multiplayer.multiplayer_peer.disconnect_peer(1)
 		$"../Control".visible = true
 		return
-	emit_signal("hide_ui")
+	hide_ui.emit()
 	add_player.rpc_id(1,multiplayer.get_unique_id())
 
 

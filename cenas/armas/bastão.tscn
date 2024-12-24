@@ -115,13 +115,13 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_tneso")
 }, {
-"duration": 0.3,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_h3cli")
 }, {
-"duration": 0.3,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_81uhr")
 }, {
-"duration": 0.3,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_8xvbs")
 }, {
 "duration": 1.0,
@@ -138,15 +138,39 @@ animations = [{
 }],
 "loop": false,
 "name": &"Use",
-"speed": 12.0
+"speed": 10.0
 }]
 
 [sub_resource type="Animation" id="Animation_rctif"]
 resource_name = "Bastao"
-length = 0.4
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bastão/Area2D:monitoring")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0666667, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="Animation" id="Animation_3lbpe"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bastão/Area2D:monitoring")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_68jgt"]
 _data = {
@@ -161,18 +185,17 @@ rotate_item = true
 texture = ExtResource("1_rsce4")
 
 [node name="Trow" type="Node2D" parent="."]
-position = Vector2(-13.5082, -13.3757)
+position = Vector2(-74.2624, 5.02597)
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(-6.47133, -13.6153)
 rotation = -0.00276365
 scale = Vector2(1.13014, 1.22601)
 monitoring = false
-monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 position = Vector2(26.7335, -13.6651)
-polygon = PackedVector2Array(-24.4517, 32.1421, -29.8257, 27.1609, -29.8915, -0.126595, -22.3574, -1.60446, -5.59528, 7.56622, 1.2571, 22.8059, 2.08152, 46.2277)
+polygon = PackedVector2Array(-24.4517, 32.1421, -29.8257, 27.1609, -30.0201, 4.45138, -22.7039, 1.67921, -6.6477, 8.74525, 1.2571, 22.8059, 2.08152, 46.2277)
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

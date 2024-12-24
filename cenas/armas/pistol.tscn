@@ -93,7 +93,7 @@ pitch_scale = 0.8
 position = Vector2(18.057, 0)
 
 [node name="RayCast" type="RayCast2D" parent="Raycasts"]
-target_position = Vector2(300, 0)
+target_position = Vector2(400, 0)
 collision_mask = 5
 hit_from_inside = true
 

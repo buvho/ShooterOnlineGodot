@@ -22,9 +22,9 @@ func try_use():
 	else:
 		fail_use()
 func use():
-	print("usou")
+	pass
 func fail_use():
-	print("falhou")
+	pass
 func get_texture():
 	var test = $Sprite
 	if texture:

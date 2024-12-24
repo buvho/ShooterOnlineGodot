@@ -9,4 +9,4 @@ extends Item
 func _on_animation_player_animation_finished(_anim_name):
 		IPlayer.reset_ready = true
 		item_ready = true
-		IPlayer.MudarVida(30)
+		IPlayer.mudar_vida(30)
