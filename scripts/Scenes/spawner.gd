@@ -29,7 +29,7 @@ func connected_to_server():
 
 #chamado só em clients
 func connection_failed():
-	$"../Control".visible = true
+	$"../CanvasLayer/MenuInicial".visible = true
 
 func _on_host_pressed():
 	peer = ENetMultiplayerPeer.new()
@@ -38,15 +38,15 @@ func _on_host_pressed():
 		return
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	multiplayer.multiplayer_peer = peer
-	$"../StartGame".visible = true
+	$"../CanvasLayer/MenuDono".visible = true
 	hide_ui.emit()
 	add_player(1)
 func _on_join_pressed():
 	peer = ENetMultiplayerPeer.new()
-	if $"../Control/Panel/Container/Ip".text.is_empty():
+	if $"../CanvasLayer/MenuInicial/Panel/Container/Ip".text.is_empty():
 		host = "localhost"
 	else:
-		host = $"../Control/Panel/Container/Ip".text
+		host = $"../CanvasLayer/MenuInicial/Panel/Container/Ip".text
 	var test = peer.create_client(host, port)
 	if test == OK:
 		peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
@@ -67,7 +67,7 @@ func get_game_status(id):
 func receive_game_status(status):
 	if status:
 		multiplayer.multiplayer_peer.disconnect_peer(1)
-		$"../Control".visible = true
+		$"../CanvasLayer/MenuInicial".visible = true
 		return
 	hide_ui.emit()
 	add_player.rpc_id(1,multiplayer.get_unique_id())

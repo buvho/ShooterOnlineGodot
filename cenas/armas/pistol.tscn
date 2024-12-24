@@ -60,7 +60,8 @@ animations = [{
 
 [node name="Deagle" type="Node2D"]
 script = ExtResource("1_3k4hg")
-dano = 50
+damage = 50
+knockback = 200
 audio_file = ExtResource("3_jtvvq")
 pitchmin = 0.8
 rotate_item = true
@@ -94,7 +95,8 @@ position = Vector2(18.057, 0)
 
 [node name="RayCast" type="RayCast2D" parent="Raycasts"]
 target_position = Vector2(400, 0)
-collision_mask = 5
+collision_mask = 12
 hit_from_inside = true
+collide_with_areas = true
 
 [connection signal="animation_finished" from="Sprite" to="." method="anim_over"]

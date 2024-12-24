@@ -29,6 +29,10 @@ project/assembly_name="Games"
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
+[gui]
+
+theme/custom_font="res://Resources/VT323-Regular.ttf"
+
 [input]
 
 up={
@@ -76,5 +80,10 @@ drop={
 [layer_names]
 
 2d_physics/layer_1="Players"
-2d_physics/layer_2="things"
+2d_physics/layer_2="props"
 2d_physics/layer_3="walls"
+2d_physics/layer_4="Hurt_boxes"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

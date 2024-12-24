@@ -57,7 +57,8 @@ animations = [{
 
 [node name="Shotgun" type="Node2D"]
 script = ExtResource("1_mbros")
-dano = 34
+damage = 34
+knockback = 100
 audio_file = ExtResource("3_ig1me")
 pitchmin = 0.8
 pitchmax = 1.2
@@ -70,18 +71,19 @@ position = Vector2(19.8712, 0.264626)
 
 [node name="RayCast" type="RayCast2D" parent="Raycasts"]
 target_position = Vector2(100, 0)
-collision_mask = 5
+collision_mask = 12
 hit_from_inside = true
 
 [node name="RayCast2" type="RayCast2D" parent="Raycasts"]
 target_position = Vector2(95, 15)
-collision_mask = 5
+collision_mask = 12
 hit_from_inside = true
 
 [node name="RayCast3" type="RayCast2D" parent="Raycasts"]
 target_position = Vector2(95, -15)
-collision_mask = 5
+collision_mask = 12
 hit_from_inside = true
+collide_with_areas = true
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

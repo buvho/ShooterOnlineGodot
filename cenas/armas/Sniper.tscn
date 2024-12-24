@@ -72,7 +72,8 @@ animations = [{
 [node name="Sniper" type="Node2D"]
 position = Vector2(0, 9)
 script = ExtResource("1_5ff5w")
-dano = 100
+damage = 100
+knockback = 500
 audio_file = ExtResource("2_a21p4")
 pitchmax = 1.2
 linetime = 2.0
@@ -99,8 +100,9 @@ position = Vector2(33, -5)
 
 [node name="RayCast" type="RayCast2D" parent="Lazer"]
 target_position = Vector2(800, 0)
-collision_mask = 5
+collision_mask = 12
 hit_from_inside = true
+collide_with_areas = true
 
 [node name="Line2D" type="Line2D" parent="Lazer"]
 z_index = -2
@@ -114,7 +116,8 @@ position = Vector2(18.057, 0)
 [node name="RayCast" type="RayCast2D" parent="Raycasts"]
 position = Vector2(14.943, -5)
 target_position = Vector2(800, 0)
-collision_mask = 5
+collision_mask = 12
 hit_from_inside = true
+collide_with_areas = true
 
 [connection signal="animation_finished" from="Sprite" to="." method="anim_over"]

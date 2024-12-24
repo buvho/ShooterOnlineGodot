@@ -1,44 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://bnnpguuu0553p"]
+[gd_scene load_steps=13 format=3 uid="uid://bnnpguuu0553p"]
 
 [ext_resource type="Script" path="res://scripts/Scenes/cara.gd" id="1_1je04"]
 [ext_resource type="Texture2D" uid="uid://clroevcjysjye" path="res://textures/player/cara.png" id="1_csa5w"]
 [ext_resource type="Texture2D" uid="uid://uyxj46b8e3d5" path="res://textures/player/Mão.png" id="2_gc23o"]
 [ext_resource type="AudioStream" uid="uid://bta4nm4a3eqml" path="res://Resources/BatSwing.mp3" id="4_3gfex"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_akh6o"]
-font_size = 48
+[ext_resource type="PackedScene" uid="uid://b7db25akkhv5t" path="res://components/hurtbox.tscn" id="5_aqejr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t6rbn"]
 size = Vector2(14.9467, 6.81537)
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5knuc"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 2
-properties/1/path = NodePath("ItemPlace:position")
-properties/1/spawn = true
-properties/1/replication_mode = 2
-properties/2/path = NodePath("ItemPlace:rotation")
-properties/2/spawn = true
-properties/2/replication_mode = 2
-properties/3/path = NodePath(".:nome")
-properties/3/spawn = true
-properties/3/replication_mode = 2
-properties/4/path = NodePath(".:vida")
-properties/4/spawn = true
-properties/4/replication_mode = 2
-properties/5/path = NodePath(".:skin_ID")
-properties/5/spawn = true
-properties/5/replication_mode = 0
-properties/6/path = NodePath("ItemPlace:scale")
-properties/6/spawn = true
-properties/6/replication_mode = 2
-properties/7/path = NodePath(".:item_id")
-properties/7/spawn = true
-properties/7/replication_mode = 2
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xk66n"]
-size = Vector2(24.6773, 24.3599)
 
 [sub_resource type="Animation" id="Animation_e7qjr"]
 length = 0.8
@@ -113,39 +82,53 @@ _data = {
 "Soco": SubResource("Animation_ghy4r")
 }
 
+[sub_resource type="LabelSettings" id="LabelSettings_akh6o"]
+font_size = 64
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5knuc"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("ItemPlace:position")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath("ItemPlace:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:nome")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:vida")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:skin_ID")
+properties/5/spawn = true
+properties/5/replication_mode = 0
+properties/6/path = NodePath("ItemPlace:scale")
+properties/6/spawn = true
+properties/6/replication_mode = 2
+properties/7/path = NodePath(".:item_id")
+properties/7/spawn = true
+properties/7/replication_mode = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mvdvx"]
+size = Vector2(24.8834, 24.9622)
+
 [node name="Cara" type="CharacterBody2D"]
 texture_filter = 1
 collision_mask = 6
 safe_margin = 0.01
 script = ExtResource("1_1je04")
-gravity = 30
-jump_force = 600
-max_speed = 450.0
-accel = 300.0
-friction = 200.0
-
-[node name="HealthBar" type="ProgressBar" parent="."]
-modulate = Color(0.870588, 0, 0, 1)
-offset_left = -16.5
-offset_top = -17.875
-offset_right = 15.5
-offset_bottom = -13.875
-value = 100.0
-show_percentage = false
-
-[node name="Nome" type="Label" parent="."]
-offset_left = -107.176
-offset_top = -34.2181
-offset_right = 967.824
-offset_bottom = 32.7819
-scale = Vector2(0.2, 0.2)
-text = "
-"
-label_settings = SubResource("LabelSettings_akh6o")
-horizontal_alignment = 1
+gravity = 20
+jump_force = 500
+max_speed = 300.0
+friction = 150.0
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_csa5w")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-8.84473, 12.5109, -12.5348, 8.38142, -12.5743, -12.6043, 12.4474, -12.6892, 12.4878, 8.80722, 8.55276, 12.4866)
 
 [node name="ItemPlace" type="Node2D" parent="."]
 
@@ -163,6 +146,8 @@ rotation = 1.57079
 texture = ExtResource("2_gc23o")
 
 [node name="Area2D" type="Area2D" parent="ItemPlace/Hands"]
+collision_layer = 0
+collision_mask = 12
 monitoring = false
 monitorable = false
 
@@ -173,20 +158,40 @@ shape = SubResource("RectangleShape2D_t6rbn")
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="ItemPlace/Hands"]
 stream = ExtResource("4_3gfex")
 
-[node name="Camera" type="Camera2D" parent="."]
-enabled = false
-zoom = Vector2(2, 2)
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_5knuc")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.0128831, 0.242431)
-shape = SubResource("RectangleShape2D_xk66n")
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_txl31")
 }
 
-[connection signal="body_entered" from="ItemPlace/Hands/Area2D" to="." method="_on_soco_em_alguem"]
+[node name="HealthBar" type="ProgressBar" parent="."]
+modulate = Color(0.870588, 0, 0, 1)
+offset_left = -16.5
+offset_top = -17.875
+offset_right = 15.5
+offset_bottom = -13.875
+value = 100.0
+show_percentage = false
+
+[node name="Nome" type="Label" parent="."]
+offset_left = -106.292
+offset_top = -32.2736
+offset_right = 968.708
+offset_bottom = 34.7264
+scale = Vector2(0.2, 0.2)
+text = "
+"
+label_settings = SubResource("LabelSettings_akh6o")
+horizontal_alignment = 1
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_5knuc")
+
+[node name="Hitbox" parent="." instance=ExtResource("5_aqejr")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-0.0484638, -0.0435781)
+shape = SubResource("RectangleShape2D_mvdvx")
+
+[connection signal="area_entered" from="ItemPlace/Hands/Area2D" to="." method="_on_soco_em_alguem"]
+[connection signal="_on_Knockback" from="Hitbox" to="." method="knockback"]
+[connection signal="_on_change_life" from="Hitbox" to="." method="mudar_vida"]

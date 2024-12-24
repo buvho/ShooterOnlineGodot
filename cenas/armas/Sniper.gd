@@ -10,7 +10,7 @@ func _ready():
 	IPlayer.cam_multiplier = 5
 	update_lazer()
 func gun_use():
-	IPlayer.knockback($Lazer.global_position,1000)
+	IPlayer.knockback($Lazer.global_position,500)
 func update_lazer():
 	if $Lazer/RayCast.get_collider():
 		$Lazer/Line2D.points[1] = $Lazer.to_local($Lazer/RayCast.get_collision_point())

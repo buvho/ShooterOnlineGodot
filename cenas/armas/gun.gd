@@ -1,6 +1,6 @@
 extends Item
 class_name Gun
-@export var dano = 25
+@export var damage = 25
 @export var knockback = 1000
 @export var audio_file : AudioStreamMP3
 @export var pitchmin : float = 1
@@ -11,17 +11,17 @@ func use():
 	$Sprite.play()
 	play_audio(audio_file,pitchmin,pitchmax)
 	for rayCast : RayCast2D in $Raycasts.get_children():
-		var Alvo = rayCast.get_collider()
-		criarLinha(rayCast)
-		if Alvo is Cara:
-			Alvo.mudar_vida(-dano)
-			Alvo.knockback(rayCast.global_position,knockback)
+		var target = rayCast.get_collider()
+		create_line(rayCast)
+		if target is HurtBox:
+			target.change_life(-damage)
+			target.knockback(rayCast.global_position,knockback)
 	gun_use()
 	
 func gun_use():
 	pass
 
-func criarLinha(rayCast):
+func create_line(rayCast):
 	var line = load("res://cenas/outros/linha.tscn").instantiate()
 	line.posicao_inicial = rayCast.global_position
 	if rayCast.get_collider() == null:

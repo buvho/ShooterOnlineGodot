@@ -1,27 +1,36 @@
 extends CharacterBody2D
 class_name Cara
+var camera
+#atributos
 @export var vida = 100;
 @export var gravity : int
 @export var jump_force : int
-@export var max_speed : float = 4000
+@export var max_speed : float = 900
 @export var accel :float = 150
 @export var friction : float = 100
-#jogador
 @export var item_id = -1
 @export var skin_ID : int
 @export var nome : String
 
+#movimentação
+var jump_buffer = 0;
+var direction = 0
+var can_jump = true
+var external_vel = 0
+#itens
 var reset_ready = false
 var item : Item
 var interacted : UseBox
 var areas_proximas: Array[UseBox]  = []
-var can_jump = true
+
+#multiplicadores
 var cam_multiplier = 1
 
 func _enter_tree():
+	camera = get_parent().get_parent().get_node("Camera")
 	set_multiplayer_authority(name.to_int())
 	if is_multiplayer_authority():
-		$Camera.enabled = true
+		camera.enable(self)
 		skin_ID = Menu.skin_ID
 		nome = Menu.nome
 		rpc("arrived",skin_ID,nome)
@@ -29,7 +38,7 @@ func _enter_tree():
 		sync()
 @rpc("any_peer", "call_local","reliable")
 func arrived(fskin_ID,fnome):
-	global_position = mapa.si.get_node("Spawn").global_position
+	global_position = Mapa.si.get_node("Spawn").global_position
 	$Sprite.texture = load(Menu.skin_list[fskin_ID][0])
 	$ItemPlace/Hands/H1.texture = load(Menu.skin_list[fskin_ID][1])
 	$ItemPlace/Hands/H2.texture = load(Menu.skin_list[fskin_ID][1])
@@ -53,13 +62,16 @@ func _physics_process(_delta):
 		try_interact()
 		mouse()
 func movement():
-	var direction = 0
+	#definir direções
+	direction = 0
 	if Input.is_action_pressed("down"):
 		velocity.y += 30
 	if Input.is_action_pressed("right"):
 		direction = 1
 	elif Input.is_action_pressed("left"):
 		direction = -1
+	if jump_buffer > 0:
+		jump_buffer -= 1
 	if not is_on_floor():
 		velocity.y += gravity
 		if can_jump == true:
@@ -69,29 +81,57 @@ func movement():
 		can_jump = true
 		if reset_ready:
 			move_reset()
-	if Input.is_action_pressed("up") && can_jump:
-			can_jump = false
-			velocity.y -= jump_force
-	if not direction && friction != 0:
+	if Input.is_action_just_pressed("up"):
+			jump_buffer = 15
+	if can_jump && (jump_buffer > 0):
+		jump_buffer = 0
+		can_jump = false
+		velocity.y -= jump_force
+	if Input.is_action_just_released("up") && velocity.y < -100:
+		velocity.y /= 1.8
+
+	#logica de fricção/movimento (velocidade x)
+	if !direction && friction != 0:
 		if velocity.x > friction:
 			velocity.x -= friction
 		elif velocity.x < -friction:
 			velocity.x += friction
 		else:
 			velocity.x = 0
+		if external_vel:
+			velocity.x = external_vel
+			reset_ready = true
+	if reset_ready == true && is_on_wall():
+		external_vel = 0
 	else:
-		velocity.x += direction * accel
-		velocity.x = clamp(velocity.x,-max_speed,max_speed)
+		var vel = direction * accel
+		if (external_vel * vel) < 0:
+			if (abs(external_vel) > vel/10):
+				external_vel += vel/10
+				velocity.x = clamp(velocity.x + vel/10, -max_speed,max_speed) + external_vel
+			else:
+				friction = 200
+				external_vel = 0
+				velocity.x = vel - external_vel 
+		else:
+			velocity.x = clamp(velocity.x + vel,-max_speed,max_speed) + external_vel
 	move_and_slide()
+func move_reset():
+	max_speed = 300
+	jump_force = 600
+	accel = 150
+	friction = 150
+	external_vel = lerpf(external_vel,0.0,0.1)
+	velocity.x = clamp(velocity.x,-max_speed,max_speed)
+	reset_ready = false
 func try_interact():
 	if not areas_proximas.is_empty() and Input.is_action_just_pressed("Interact"):
 		interacted = areas_proximas.pop_front()
-		interact.rpc(mapa.si.get_path_to(interacted))
+		interact.rpc(Mapa.si.get_path_to(interacted))
 	if item and Input.is_action_just_pressed("drop"):
-		drop_item(item_id)
+		drop_item()
 func mouse():
 	var mousePos = get_local_mouse_position()
-	$Camera.position =  get_local_mouse_position() * 0.05 * cam_multiplier
 	if item != null:
 		mousePos = mousePos.normalized() * 15 if mousePos.length() > 15 else mousePos
 	else:
@@ -121,7 +161,7 @@ func remove_UseBox(useb : UseBox):
 func equip_item(fitem : Item):
 	if item_id == -1 or item.item_ready == true:
 		if item_id != -1:
-			drop_item(item_id)
+			drop_item()
 		reset_ready = true
 		$ItemPlace.add_child(fitem)
 		item = fitem;
@@ -136,8 +176,8 @@ func use_item(id):
 		$AnimationPlayer.play("Soco")
 	else:
 		item.try_use()
-func drop_item(id):
-	mapa.si.spawn_drop.rpc_id(1,item_id,!$Sprite.flip_h,$ItemPlace.global_position)
+func drop_item():
+	Mapa.si.spawn_drop.rpc_id(1,item_id,$ItemPlace.global_position,!$Sprite.flip_h)
 	remove_item.rpc()
 @rpc("any_peer", "call_local","reliable") 
 func remove_item():
@@ -152,16 +192,10 @@ func remove_item():
 		while i > 0:
 			$ItemPlace.get_child(i).queue_free()
 			i -= 1
-func move_reset():
-	max_speed = 450
-	jump_force = 600
-	accel = 200
-	friction = 200
-	reset_ready = false
 
 @rpc("any_peer", "call_local","reliable") 
 func interact(finteracted : String):
-	var interacted_target = mapa.si.get_node(finteracted)
+	var interacted_target = Mapa.si.get_node(finteracted)
 	interacted_target.use(self)
 @rpc("call_local","any_peer","reliable")
 func respawn():
@@ -169,9 +203,12 @@ func respawn():
 	mudar_vida(100)
 	velocity = Vector2.ZERO
 	visible = true
-	$CollisionShape2D.disabled = false
+	$Hitbox.monitoring = true
+
 func knockback(vetor : Vector2,forca : int):
-	velocity += vetor.direction_to(global_position) * forca
+	var vector = vetor.direction_to(global_position) * forca
+	external_vel += vector.x
+	velocity.y += vector.y
 func mudar_vida(valor):
 	if multiplayer.get_unique_id() == 1:
 		mudar_vidaRPC.rpc(valor)
@@ -181,13 +218,13 @@ func mudar_vidaRPC(valor):
 	$HealthBar.value = vida
 	if vida == 0:
 		visible = false
-		$CollisionShape2D.call_deferred("set", "disabled", true)
+		$Hitbox.monitoring = false
 		if is_multiplayer_authority():
 			var pepega = load("res://cenas/outros/cooldown.tscn").instantiate()
 			pepega.vitima = self
 			add_child(pepega)
 
 func _on_soco_em_alguem(body):
-	if body is Cara && body != self:
-		body.mudar_vida(-10)
+	if body is HurtBox && body != $ItemPlace/Hands/Area2D:
+		body.change_life(-10)
 		body.knockback(global_position + Vector2(0,3),500)

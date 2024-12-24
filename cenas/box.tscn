@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://b0hxr5rydtxqa"]
+
+[ext_resource type="Script" path="res://box.gd" id="1_mh828"]
+[ext_resource type="Texture2D" uid="uid://8yrqf28e4lam" path="res://textures/props/caixa.png" id="2_mnska"]
+[ext_resource type="Script" path="res://hurtbox.gd" id="3_vwvh1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ryyp"]
+size = Vector2(24.9812, 25.0657)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_swivn"]
+size = Vector2(24.7504, 25.1963)
+
+[node name="Box" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 7
+can_sleep = false
+lock_rotation = true
+script = ExtResource("1_mh828")
+item_id = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_mnska")
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 12
+collision_mask = 12
+script = ExtResource("3_vwvh1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0.00940037, 0.0296507)
+shape = SubResource("RectangleShape2D_1ryyp")
+debug_color = Color(0.951043, 3.27289e-06, 0.565615, 0.42)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.0351048, -0.0132713)
+shape = SubResource("RectangleShape2D_swivn")
+
+[connection signal="_on_change_life" from="HurtBox" to="." method="_on_hurt_box__on_change_life"]

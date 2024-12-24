@@ -34,5 +34,4 @@ func _on_right_pressed():
 
 func _on_connected():
 	nome = $Panel/PlayerEdit/NameEdit.text
-	$"../Control".visible = false
-	$Camera2D.enabled = false
+	visible = false

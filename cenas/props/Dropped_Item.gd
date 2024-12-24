@@ -13,4 +13,4 @@ func _ready():
 func use(cara : Cara):
 	cara.equip_item(itemSC.instantiate())
 	if not infinite && multiplayer.get_unique_id() == 1:
-		mapa.si.remove_drop.rpc_id(1,name)
+		Mapa.si.remove_drop.rpc_id(1,name)

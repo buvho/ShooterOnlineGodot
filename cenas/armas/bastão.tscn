@@ -191,6 +191,8 @@ position = Vector2(-74.2624, 5.02597)
 position = Vector2(-6.47133, -13.6153)
 rotation = -0.00276365
 scale = Vector2(1.13014, 1.22601)
+collision_layer = 12
+collision_mask = 12
 monitoring = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
@@ -225,5 +227,4 @@ pitch_scale = 0.8
 
 [node name="Audio" type="AudioStreamPlayer2D" parent="."]
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="animation_finished" from="Sprite" to="." method="_on_sprite_animation_finished"]
