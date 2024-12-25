@@ -1,6 +1,5 @@
-[gd_scene load_steps=9 format=4 uid="uid://cmcb643fl7kue"]
+[gd_scene load_steps=8 format=4 uid="uid://cmcb643fl7kue"]
 
-[ext_resource type="Script" path="res://cenas/mapas/mapa.gd" id="1_yto60"]
 [ext_resource type="Script" path="res://cenas/outros/area_2d.gd" id="3_melb5"]
 [ext_resource type="Texture2D" uid="uid://b2cti1k6cyhd4" path="res://textures/paredes/tileset.png" id="4_cb2n1"]
 [ext_resource type="PackedScene" uid="uid://b0hxr5rydtxqa" path="res://cenas/box.tscn" id="6_v6qei"]
@@ -29,7 +28,6 @@ sources/2 = SubResource("TileSetAtlasSource_o1f74")
 sources/0 = SubResource("TileSetScenesCollectionSource_u3fcr")
 
 [node name="Mapa" type="Node2D"]
-script = ExtResource("1_yto60")
 
 [node name="Area2D" type="Area2D" parent="."]
 script = ExtResource("3_melb5")

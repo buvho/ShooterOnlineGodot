@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cxcuf7sebvpj5"]
+[gd_scene load_steps=10 format=3 uid="uid://cxcuf7sebvpj5"]
 
 [ext_resource type="Script" path="res://cenas/outros/camera_2d.gd" id="1_pqahw"]
 [ext_resource type="Script" path="res://scripts/Scenes/spawner.gd" id="1_yvxq5"]
 [ext_resource type="PackedScene" uid="uid://bnnpguuu0553p" path="res://cenas/outros/cara.tscn" id="2_4js1i"]
+[ext_resource type="Script" path="res://cenas/mapas/mapa.gd" id="2_box7f"]
 [ext_resource type="PackedScene" uid="uid://bmoqioawll1gu" path="res://cenas/mapas/lobby.tscn" id="3_xjj56"]
 [ext_resource type="Script" path="res://cenas/outros/menu_dono.gd" id="5_ct1tx"]
 [ext_resource type="Script" path="res://scripts/Scenes/control.gd" id="6_q8lro"]
@@ -19,11 +20,15 @@ position = Vector2(3193, 1789)
 zoom = Vector2(2, 2)
 script = ExtResource("1_pqahw")
 
+[node name="Mapa" type="Node2D" parent="."]
+script = ExtResource("2_box7f")
+
+[node name="Lobby" parent="Mapa" instance=ExtResource("3_xjj56")]
+script = null
+
 [node name="Spawner" type="Node2D" parent="."]
 script = ExtResource("1_yvxq5")
 player_scene = ExtResource("2_4js1i")
-
-[node name="Mapa" parent="." instance=ExtResource("3_xjj56")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -168,7 +173,7 @@ offset_bottom = 40.0
 
 [node name="MultiplayerSpawner2" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://cenas/props/dropped_item.tscn")
-spawn_path = NodePath("../Mapa")
+spawn_path = NodePath("../Mapa/Lobby")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://cenas/outros/cara.tscn")

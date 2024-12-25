@@ -36,6 +36,7 @@ centered = false
 
 [node name="Use_box" type="Area2D" parent="."]
 position = Vector2(1, 0)
+collision_layer = 0
 script = ExtResource("1_ne7h8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Use_box"]

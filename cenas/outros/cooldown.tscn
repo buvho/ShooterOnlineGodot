@@ -36,7 +36,7 @@ offset_bottom = 151.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Morreu" type="Label" parent="Panel/Control"]
+[node name="Text" type="Label" parent="Panel/Control"]
 layout_mode = 2
 text = "Morreu"
 label_settings = SubResource("LabelSettings_fd3x6")

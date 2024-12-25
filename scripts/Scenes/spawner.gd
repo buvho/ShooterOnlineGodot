@@ -1,7 +1,6 @@
 extends Node2D
 class_name NetWork
 @export var player_scene: PackedScene
-static var spawn_point;
 var game_stared = false
 var port = 2012
 var host
@@ -13,7 +12,6 @@ func _ready():
 	multiplayer.peer_disconnected.connect(peer_disconnected)
 	multiplayer.connected_to_server.connect(connected_to_server)
 	multiplayer.connection_failed.connect(connection_failed)
-	spawn_point = $"../Mapa/Spawn".global_position
 
 #chamado nos servers e clients
 func peer_connected(_id):
@@ -53,11 +51,12 @@ func _on_join_pressed():
 		multiplayer.multiplayer_peer = peer
 
 @rpc("any_peer","call_local")
-func add_player(id):
+func add_player(id,spawn = 0):
 	var player = player_scene.instantiate()
 	player.name = str(id);
-	player.global_position = spawn_point
+	player.global_position = $"../Mapa".get_node("Spawns").get_child(spawn).global_position
 	call_deferred("add_child", player)
+	return player
 
 @rpc("any_peer")
 func get_game_status(id):

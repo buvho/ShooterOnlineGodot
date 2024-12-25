@@ -1,6 +1,5 @@
 extends CharacterBody2D
 class_name Cara
-var camera
 #atributos
 @export var vida = 100;
 @export var gravity : int
@@ -27,10 +26,8 @@ var areas_proximas: Array[UseBox]  = []
 var cam_multiplier = 1
 
 func _enter_tree():
-	camera = get_parent().get_parent().get_node("Camera")
 	set_multiplayer_authority(name.to_int())
 	if is_multiplayer_authority():
-		camera.enable(self)
 		skin_ID = Menu.skin_ID
 		nome = Menu.nome
 		rpc("arrived",skin_ID,nome)
@@ -38,7 +35,7 @@ func _enter_tree():
 		sync()
 @rpc("any_peer", "call_local","reliable")
 func arrived(fskin_ID,fnome):
-	global_position = Mapa.si.get_node("Spawn").global_position
+	global_position = Mapa.si.get_node("Spawns").get_child(0).global_position
 	$Sprite.texture = load(Menu.skin_list[fskin_ID][0])
 	$ItemPlace/Hands/H1.texture = load(Menu.skin_list[fskin_ID][1])
 	$ItemPlace/Hands/H2.texture = load(Menu.skin_list[fskin_ID][1])
@@ -118,7 +115,7 @@ func movement():
 	move_and_slide()
 func move_reset():
 	max_speed = 300
-	jump_force = 600
+	jump_force = 500
 	accel = 150
 	friction = 150
 	external_vel = lerpf(external_vel,0.0,0.1)
@@ -198,12 +195,13 @@ func interact(finteracted : String):
 	var interacted_target = Mapa.si.get_node(finteracted)
 	interacted_target.use(self)
 @rpc("call_local","any_peer","reliable")
-func respawn():
-	global_position = get_parent().spawn_point
+func respawn(spawn):
+	global_position = Mapa.get_spawn(spawn)
 	mudar_vida(100)
+	external_vel = 0
 	velocity = Vector2.ZERO
 	visible = true
-	$Hitbox.monitoring = true
+	$Hitbox/CollisionShape2D.disabled = false
 
 func knockback(vetor : Vector2,forca : int):
 	var vector = vetor.direction_to(global_position) * forca
@@ -218,12 +216,11 @@ func mudar_vidaRPC(valor):
 	$HealthBar.value = vida
 	if vida == 0:
 		visible = false
-		$Hitbox.monitoring = false
+		$Hitbox/CollisionShape2D.disabled = true
+		move_reset()
 		if is_multiplayer_authority():
-			var pepega = load("res://cenas/outros/cooldown.tscn").instantiate()
-			pepega.vitima = self
-			add_child(pepega)
-
+			var countdown = Mapa.create_countdown("Morreu",self)
+			countdown.Acabou.connect(func(): respawn.rpc(randi() % Mapa.drop_quant))
 func _on_soco_em_alguem(body):
 	if body is HurtBox && body != $ItemPlace/Hands/Area2D:
 		body.change_life(-10)
