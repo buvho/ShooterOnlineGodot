@@ -1,7 +1,6 @@
 extends Camera2D
 var player : Cara
 func enable(p : Cara):
-	enabled = true
 	player = p
 	global_position = p.global_position
 func _physics_process(_delta):

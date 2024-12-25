@@ -54,7 +54,10 @@ offset_bottom = 242.0
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(0.1, 0.1)
+focus_mode = 0
 theme_override_font_sizes/font_size = 200
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "Começar"
 
 [node name="MenuInicial" type="Control" parent="CanvasLayer"]
@@ -173,7 +176,7 @@ offset_bottom = 40.0
 
 [node name="MultiplayerSpawner2" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://cenas/props/dropped_item.tscn")
-spawn_path = NodePath("../Mapa/Lobby")
+spawn_path = NodePath("../Mapa")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://cenas/outros/cara.tscn")

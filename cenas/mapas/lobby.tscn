@@ -61,6 +61,7 @@ tile_set = SubResource("TileSet_u4a1q")
 
 [node name="Collectable_Item" parent="." instance=ExtResource("5_fhnaj")]
 position = Vector2(451, 289)
+item_id = 0
 infinite = true
 
 [node name="Collectable_Item2" parent="." instance=ExtResource("5_fhnaj")]

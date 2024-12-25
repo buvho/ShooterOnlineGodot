@@ -9,7 +9,7 @@ func _ready():
 	var voumematar = itemSC.instantiate()
 	$Sprite.texture = voumematar.get_texture()
 	$Sprite.offset = Vector2(0,-voumematar.height)
-@rpc("any_peer", "call_local") 
+@rpc("any_peer", "call_local","reliable") 
 func use(cara : Cara):
 	cara.equip_item(itemSC.instantiate())
 	if not infinite && multiplayer.get_unique_id() == 1:

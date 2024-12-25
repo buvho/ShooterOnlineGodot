@@ -50,19 +50,21 @@ func _on_join_pressed():
 		peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 		multiplayer.multiplayer_peer = peer
 
-@rpc("any_peer","call_local")
+@rpc("any_peer","call_local","reliable")
 func add_player(id,spawn = 0):
-	var player = player_scene.instantiate()
+	var player : Cara = player_scene.instantiate()
 	player.name = str(id);
-	player.global_position = $"../Mapa".get_node("Spawns").get_child(spawn).global_position
 	call_deferred("add_child", player)
+	player.ready.connect(func(): get_tree().create_timer(0.01).timeout.connect(func (): player_pos.rpc_id(id,id,spawn)))
 	return player
-
-@rpc("any_peer")
+@rpc("any_peer","reliable","call_local")
+func player_pos(id,spawn):
+	get_node(str(id)).global_position = Mapa.get_spawn(spawn)
+@rpc("any_peer","reliable")
 func get_game_status(id):
 	receive_game_status.rpc_id(id,game_stared)
 
-@rpc("any_peer")
+@rpc("any_peer","reliable")
 func receive_game_status(status):
 	if status:
 		multiplayer.multiplayer_peer.disconnect_peer(1)

@@ -10,7 +10,7 @@ class_name Cara
 @export var item_id = -1
 @export var skin_ID : int
 @export var nome : String
-
+@export var spawn_pos = Vector2.ZERO
 #movimentação
 var jump_buffer = 0;
 var direction = 0
@@ -26,16 +26,21 @@ var areas_proximas: Array[UseBox]  = []
 var cam_multiplier = 1
 
 func _enter_tree():
+	print(global_position)
 	set_multiplayer_authority(name.to_int())
 	if is_multiplayer_authority():
+		get_parent().get_parent().get_node("Camera").enable(self)
 		skin_ID = Menu.skin_ID
 		nome = Menu.nome
+		global_position = spawn_pos
 		rpc("arrived",skin_ID,nome)
+		print(global_position)
 		await  get_tree().create_timer(0.05).timeout
 		sync()
+		print(global_position)
 @rpc("any_peer", "call_local","reliable")
 func arrived(fskin_ID,fnome):
-	global_position = Mapa.si.get_node("Spawns").get_child(0).global_position
+	#global_position = Mapa.si.get_node("Spawns").get_child(0).global_position
 	$Sprite.texture = load(Menu.skin_list[fskin_ID][0])
 	$ItemPlace/Hands/H1.texture = load(Menu.skin_list[fskin_ID][1])
 	$ItemPlace/Hands/H2.texture = load(Menu.skin_list[fskin_ID][1])
@@ -55,6 +60,7 @@ func sync():
 			
 func _physics_process(_delta):
 	if is_multiplayer_authority() && visible == true:
+		print(name + " " + str(multiplayer.get_unique_id()))
 		movement()
 		try_interact()
 		mouse()
@@ -220,8 +226,8 @@ func mudar_vidaRPC(valor):
 		move_reset()
 		if is_multiplayer_authority():
 			var countdown = Mapa.create_countdown("Morreu",self)
-			countdown.Acabou.connect(func(): respawn.rpc(randi() % Mapa.drop_quant))
+			countdown.acabou.connect(func(): respawn.rpc(randi() % Mapa.drop_quant))
 func _on_soco_em_alguem(body):
-	if body is HurtBox && body != $ItemPlace/Hands/Area2D:
+	if body is HurtBox && body.get_owner() != self:
 		body.change_life(-10)
-		body.knockback(global_position + Vector2(0,3),500)
+		body.knockback(global_position + Vector2(0,3),100)
