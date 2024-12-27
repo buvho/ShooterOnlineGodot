@@ -7,7 +7,7 @@ var hook : Node2D;
 func use():
 		item_ready = false;
 		hook = hookSC.instantiate()
-		Mapa.si.add_child(hook)
+		Game.si.add_child(hook)
 		$Sprite.frame = 1
 		hook.global_position = $Ponto.global_position
 		hook.rotation = get_parent().rotation

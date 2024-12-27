@@ -1,7 +1,9 @@
 extends Camera2D
 var player : Cara
 func enable(p : Cara):
+	enabled = true
 	player = p
+	p.tree_exited.connect(func(): player = null)
 	global_position = p.global_position
 func _physics_process(_delta):
 	if player:

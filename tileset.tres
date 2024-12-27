@@ -1,0 +1,28 @@
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://b5i86fpa41r1w"]
+
+[ext_resource type="PackedScene" uid="uid://brpnk1dsmiydt" path="res://cenas/props/spikes.tscn" id="1_fnja0"]
+[ext_resource type="PackedScene" uid="uid://decwpud56ph11" path="res://cenas/props/spring.tscn" id="2_6sa3n"]
+[ext_resource type="PackedScene" uid="uid://b2cgv66kseees" path="res://cenas/props/plataform.tscn" id="3_ccrie"]
+[ext_resource type="Texture2D" uid="uid://b2cti1k6cyhd4" path="res://textures/paredes/tileset.png" id="4_h3tsi"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_hn4ev"]
+scenes/1/scene = ExtResource("1_fnja0")
+scenes/2/scene = ExtResource("2_6sa3n")
+scenes/3/scene = ExtResource("3_ccrie")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o1f74"]
+texture = ExtResource("4_h3tsi")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[resource]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 4
+physics_layer_0/collision_mask = 7
+sources/2 = SubResource("TileSetAtlasSource_o1f74")
+sources/0 = SubResource("TileSetScenesCollectionSource_hn4ev")

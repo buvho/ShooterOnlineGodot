@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://bnnpguuu0553p"]
+[gd_scene load_steps=14 format=3 uid="uid://bnnpguuu0553p"]
 
 [ext_resource type="Script" path="res://scripts/Scenes/cara.gd" id="1_1je04"]
 [ext_resource type="Texture2D" uid="uid://clroevcjysjye" path="res://textures/player/cara.png" id="1_csa5w"]
 [ext_resource type="Texture2D" uid="uid://uyxj46b8e3d5" path="res://textures/player/Mão.png" id="2_gc23o"]
 [ext_resource type="AudioStream" uid="uid://bta4nm4a3eqml" path="res://Resources/BatSwing.mp3" id="4_3gfex"]
 [ext_resource type="PackedScene" uid="uid://b7db25akkhv5t" path="res://components/hurtbox.tscn" id="5_aqejr"]
+[ext_resource type="Script" path="res://cenas/outros/multiplayer_synchronizer.gd" id="5_fc1mk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t6rbn"]
 size = Vector2(14.9467, 6.81537)
@@ -97,22 +98,19 @@ properties/2/spawn = true
 properties/2/replication_mode = 2
 properties/3/path = NodePath(".:nome")
 properties/3/spawn = true
-properties/3/replication_mode = 0
+properties/3/replication_mode = 2
 properties/4/path = NodePath(".:vida")
 properties/4/spawn = true
 properties/4/replication_mode = 2
 properties/5/path = NodePath(".:skin_ID")
 properties/5/spawn = true
-properties/5/replication_mode = 0
+properties/5/replication_mode = 2
 properties/6/path = NodePath("ItemPlace:scale")
 properties/6/spawn = true
 properties/6/replication_mode = 2
 properties/7/path = NodePath(".:item_id")
 properties/7/spawn = true
 properties/7/replication_mode = 2
-properties/8/path = NodePath(".:spawn_pos")
-properties/8/spawn = true
-properties/8/replication_mode = 0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mvdvx"]
 size = Vector2(24.8834, 24.9622)
@@ -185,9 +183,12 @@ text = "
 "
 label_settings = SubResource("LabelSettings_akh6o")
 horizontal_alignment = 1
+max_lines_visible = 1
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+process_mode = 3
 replication_config = SubResource("SceneReplicationConfig_5knuc")
+script = ExtResource("5_fc1mk")
 
 [node name="Hitbox" parent="." instance=ExtResource("5_aqejr")]
 
@@ -196,5 +197,6 @@ position = Vector2(-0.0484638, -0.0435781)
 shape = SubResource("RectangleShape2D_mvdvx")
 
 [connection signal="area_entered" from="ItemPlace/Hands/Area2D" to="." method="_on_soco_em_alguem"]
+[connection signal="synchronized" from="MultiplayerSynchronizer" to="MultiplayerSynchronizer" method="_on_synchronized"]
 [connection signal="_on_Knockback" from="Hitbox" to="." method="knockback"]
 [connection signal="_on_change_life" from="Hitbox" to="." method="mudar_vida"]

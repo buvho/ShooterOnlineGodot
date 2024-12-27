@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=4 uid="uid://c7kajxjogfd1w"]
+
+[ext_resource type="Script" path="res://cenas/outros/area_2d.gd" id="1_ngiec"]
+[ext_resource type="TileSet" uid="uid://b5i86fpa41r1w" path="res://tileset.tres" id="2_nckby"]
+[ext_resource type="PackedScene" uid="uid://b0hxr5rydtxqa" path="res://cenas/props/box.tscn" id="3_u5hs2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_75w8b"]
+size = Vector2(13321, 645.5)
+
+[node name="Mapa" type="Node2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("1_ngiec")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1269.5, 1114.25)
+shape = SubResource("RectangleShape2D_75w8b")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+z_index = -1
+scale = Vector2(0.75, 0.75)
+tile_map_data = PackedByteArray("AAD8/xYAAgACAAAAAAD9/xYAAgACAAAAAAD+/xYAAgACAAAAAAD//xYAAgACAAAAAAAAABYAAgACAAAAAAABABYAAgACAAAAAAACABYAAgACAAAAAAADABYAAgACAAAAAAAEABYAAgACAAAAAAAFABYAAgACAAAAAAAGABYAAgACAAAAAAAHABYAAgACAAAAAAAIABYAAgACAAAAAAAJABYAAgACAAAAAAAKABYAAgACAAAAAAALABYAAgACAAAAAAAMABYAAgACAAAAAAANABYAAgACAAAAAAD9/xcAAgACAAAAAAD+/xcAAgACAAAAAAD//xcAAgACAAAAAAAAABcAAgACAAAAAAABABcAAgACAAAAAAACABcAAgACAAAAAAADABcAAgACAAAAAAAEABcAAgACAAAAAAAFABcAAgACAAAAAAAGABcAAgACAAAAAAAHABcAAgACAAAAAAAIABcAAgACAAAAAAAJABcAAgACAAAAAAAKABcAAgACAAAAAAALABcAAgACAAAAAAAgABYAAgACAAAAAAAhABYAAgACAAAAAAAiABYAAgACAAAAAAAjABYAAgACAAAAAAAkABYAAgACAAAAAAAlABYAAgACAAAAAAAmABYAAgACAAAAAAAnABYAAgACAAAAAAAoABYAAgACAAAAAAApABYAAgACAAAAAAAqABYAAgACAAAAAAArABYAAgACAAAAAAAsABYAAgACAAAAAAAtABYAAgACAAAAAAAhABcAAgACAAAAAAAiABcAAgACAAAAAAAjABcAAgACAAAAAAAkABcAAgACAAAAAAAlABcAAgACAAAAAAAmABcAAgACAAAAAAAnABcAAgACAAAAAAAoABcAAgACAAAAAAApABcAAgACAAAAAAAqABcAAgACAAAAAAArABcAAgACAAAAAAAvABYAAgACAAAAAAAuABYAAgACAAAAAAAwABYAAgACAAAAAAAxABYAAgACAAAAAAAsABcAAgACAAAAAAAtABcAAgACAAAAAAAuABcAAgACAAAAAAAvABcAAgACAAAAAAAwABcAAgACAAAAAAANAAoAAgACAAAAAAAOAAoAAgACAAAAAAAPAAoAAgACAAAAAAAQAAoAAgACAAAAAAARAAoAAgACAAAAAAASAAoAAgACAAAAAAATAAoAAgACAAAAAAAUAAoAAgACAAAAAAAVAAoAAgACAAAAAAAWAAoAAgACAAAAAAAXAAoAAgACAAAAAAAYAAoAAgACAAAAAAAZAAoAAgACAAAAAAAaAAoAAgACAAAAAAAbAAoAAgACAAAAAAAcAAoAAgACAAAAAAAdAAoAAgACAAAAAAAeAAoAAgACAAAAAAAfAAoAAgACAAAAAAAgAAoAAgACAAAAAAAPAAsAAgACAAAAAAAQAAsAAgACAAAAAAARAAsAAgACAAAAAAASAAsAAgACAAAAAAATAAsAAgACAAAAAAAUAAsAAgACAAAAAAAVAAsAAgACAAAAAAAWAAsAAgACAAAAAAAXAAsAAgACAAAAAAAYAAsAAgACAAAAAAAZAAsAAgACAAAAAAAaAAsAAgACAAAAAAAbAAsAAgACAAAAAAAcAAsAAgACAAAAAAAdAAsAAgACAAAAAAAeAAsAAgACAAAAAAAMABcAAgACAAAAAAAVABYAAgACAAAAAAAWABYAAgACAAAAAAAXABYAAgACAAAAAAAYABYAAgACAAAAAAAUABYAAgACAAAAAAAZABYAAgACAAAAAAAYABcAAgACAAAAAAAXABcAAgACAAAAAAAWABcAAgACAAAAAAAVABcAAgACAAAAAAAfAAsAAgACAAAAAAAgAAsAAgACAAAAAAAOAAsAAgACAAAAAAANAAsAAgACAAAAAAABABIAAAAAAAAAAwACABIAAAAAAAAAAwADABIAAAAAAAAAAwAEABIAAAAAAAAAAwAFABIAAAAAAAAAAwAGABIAAAAAAAAAAwAHABIAAAAAAAAAAwAIABIAAAAAAAAAAwAnABMAAAAAAAAAAwAoABMAAAAAAAAAAwApABMAAAAAAAAAAwAqABMAAAAAAAAAAwAmABMAAAAAAAAAAwArABMAAAAAAAAAAwAsABMAAAAAAAAAAwAlABMAAAAAAAAAAwA=")
+tile_set = ExtResource("2_nckby")
+
+[node name="Spawns" type="Node2D" parent="."]
+position = Vector2(38, 256)
+
+[node name="Node2D" type="Node2D" parent="Spawns"]
+position = Vector2(-67.824, 265.967)
+
+[node name="Node2D2" type="Node2D" parent="Spawns"]
+position = Vector2(231.505, 259.889)
+
+[node name="Node2D3" type="Node2D" parent="Spawns"]
+position = Vector2(804.909, 270.006)
+
+[node name="Node2D4" type="Node2D" parent="Spawns"]
+position = Vector2(1114.47, 270.926)
+
+[node name="props" type="Node2D" parent="."]
+
+[node name="Box6" parent="props" instance=ExtResource("3_u5hs2")]
+position = Vector2(241.147, 515.273)
+item_id = 0
+
+[node name="Box7" parent="props" instance=ExtResource("3_u5hs2")]
+position = Vector2(2.62558, 513.95)
+item_id = 0
+
+[node name="Box8" parent="props" instance=ExtResource("3_u5hs2")]
+position = Vector2(870.99, 515.838)
+item_id = 0
+
+[node name="Box12" parent="props" instance=ExtResource("3_u5hs2")]
+position = Vector2(988.233, 437.433)
+item_id = 2
+
+[node name="Box13" parent="props" instance=ExtResource("3_u5hs2")]
+position = Vector2(122.628, 412.032)
+item_id = 2
+
+[node name="Box9" parent="props" instance=ExtResource("3_u5hs2")]
+position = Vector2(1120.45, 515.838)
+item_id = 0
+
+[node name="Box10" parent="props" instance=ExtResource("3_u5hs2")]
+position = Vector2(553.49, 224.796)
+item_id = 5
+
+[node name="Box11" parent="props" instance=ExtResource("3_u5hs2")]
+position = Vector2(554.75, 514.578)
+item_id = 4
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

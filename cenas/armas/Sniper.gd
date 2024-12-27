@@ -6,7 +6,6 @@ func _input(event):
 func _ready():
 	$Lazer/Line2D.points[0] = $Lazer/RayCast.position
 	IPlayer.max_speed /= 2
-	IPlayer.reset_ready = false
 	IPlayer.cam_multiplier = 5
 	update_lazer()
 func gun_use():

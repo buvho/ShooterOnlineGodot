@@ -227,4 +227,5 @@ pitch_scale = 0.8
 
 [node name="Audio" type="AudioStreamPlayer2D" parent="."]
 
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="animation_finished" from="Sprite" to="." method="_on_sprite_animation_finished"]

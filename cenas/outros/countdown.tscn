@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dxmjbag2pc2b3"]
 
-[ext_resource type="Script" path="res://cenas/outros/Countdown.gd" id="1_jemg0"]
+[ext_resource type="Script" path="res://cenas/outros/Countdown.gd" id="1_dok8g"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oqf36"]
 bg_color = Color(0.47, 0.47, 0.47, 0.352941)
@@ -11,8 +11,8 @@ font_size = 84
 [sub_resource type="LabelSettings" id="LabelSettings_d5wqo"]
 font_size = 128
 
-[node name="Control" type="CanvasLayer"]
-script = ExtResource("1_jemg0")
+[node name="countdown" type="CanvasLayer"]
+script = ExtResource("1_dok8g")
 
 [node name="Panel" type="Panel" parent="."]
 anchors_preset = 15
@@ -38,8 +38,9 @@ grow_vertical = 2
 
 [node name="Text" type="Label" parent="Panel/Control"]
 layout_mode = 2
-text = "Morreu"
 label_settings = SubResource("LabelSettings_fd3x6")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Countdown" type="Label" parent="Panel/Control"]
 layout_mode = 2

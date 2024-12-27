@@ -16,31 +16,26 @@ var jump_buffer = 0;
 var direction = 0
 var can_jump = true
 var external_vel = 0
+var in_plataform = 0
 #itens
 var reset_ready = false
 var item : Item
 var interacted : UseBox
 var areas_proximas: Array[UseBox]  = []
-
 #multiplicadores
 var cam_multiplier = 1
 
 func _enter_tree():
-	print(global_position)
 	set_multiplayer_authority(name.to_int())
 	if is_multiplayer_authority():
 		get_parent().get_parent().get_node("Camera").enable(self)
 		skin_ID = Menu.skin_ID
-		nome = Menu.nome
-		global_position = spawn_pos
+		nome = Menu.get_player_name()
 		rpc("arrived",skin_ID,nome)
-		print(global_position)
-		await  get_tree().create_timer(0.05).timeout
+		await  get_tree().create_timer(0.2).timeout
 		sync()
-		print(global_position)
 @rpc("any_peer", "call_local","reliable")
 func arrived(fskin_ID,fnome):
-	#global_position = Mapa.si.get_node("Spawns").get_child(0).global_position
 	$Sprite.texture = load(Menu.skin_list[fskin_ID][0])
 	$ItemPlace/Hands/H1.texture = load(Menu.skin_list[fskin_ID][1])
 	$ItemPlace/Hands/H2.texture = load(Menu.skin_list[fskin_ID][1])
@@ -60,7 +55,6 @@ func sync():
 			
 func _physics_process(_delta):
 	if is_multiplayer_authority() && visible == true:
-		print(name + " " + str(multiplayer.get_unique_id()))
 		movement()
 		try_interact()
 		mouse()
@@ -73,6 +67,7 @@ func movement():
 		direction = 1
 	elif Input.is_action_pressed("left"):
 		direction = -1
+	#logica de pulo (velocidade y)
 	if jump_buffer > 0:
 		jump_buffer -= 1
 	if not is_on_floor():
@@ -80,12 +75,18 @@ func movement():
 		if can_jump == true:
 			get_tree().create_timer(0.1).timeout.connect(func():
 				can_jump = false)
+		if Input.is_action_just_pressed("up"):
+			jump_buffer = 15
 	else:
+		if in_plataform:
+			if Input.is_action_pressed("up") && Input.is_action_pressed("down"):
+				position.y += 5
+
 		can_jump = true
 		if reset_ready:
 			move_reset()
-	if Input.is_action_just_pressed("up"):
-			jump_buffer = 15
+		if Input.is_action_just_pressed("up") && !Input.is_action_pressed("down"):
+			jump_buffer = 2
 	if can_jump && (jump_buffer > 0):
 		jump_buffer = 0
 		can_jump = false
@@ -101,9 +102,8 @@ func movement():
 			velocity.x += friction
 		else:
 			velocity.x = 0
-		if external_vel:
-			velocity.x = external_vel
-			reset_ready = true
+	if external_vel && is_on_floor():
+		reset_ready = true
 	if reset_ready == true && is_on_wall():
 		external_vel = 0
 	else:
@@ -130,7 +130,7 @@ func move_reset():
 func try_interact():
 	if not areas_proximas.is_empty() and Input.is_action_just_pressed("Interact"):
 		interacted = areas_proximas.pop_front()
-		interact.rpc(Mapa.si.get_path_to(interacted))
+		interacted.use(self)
 	if item and Input.is_action_just_pressed("drop"):
 		drop_item()
 func mouse():
@@ -159,20 +159,22 @@ func add_UseBox(useb : UseBox):
 	areas_proximas.append(useb)
 func remove_UseBox(useb : UseBox):
 	areas_proximas.erase(useb)
-
-@rpc("any_peer", "call_local","reliable") 
-func equip_item(fitem : Item):
+func equip_item(id : int):
 	if item_id == -1 or item.item_ready == true:
 		if item_id != -1:
 			drop_item()
-		reset_ready = true
-		$ItemPlace.add_child(fitem)
-		item = fitem;
-		item_id = fitem.id;
-		$ItemPlace/Hands/H1.global_position = fitem.get_node("Sprite/Hp1").global_position
-		$ItemPlace/Hands/H2.global_position = fitem.get_node("Sprite/Hp2").global_position
+		equip_item_RPC.rpc(id)
 	else:
 		areas_proximas.append(interacted)
+@rpc("any_peer", "call_local","reliable") 
+func equip_item_RPC(id):
+	reset_ready = true
+	var fitem = load(Item.IdList[id]).instantiate()
+	$ItemPlace.add_child(fitem)
+	item = fitem;
+	item_id = fitem.id;
+	$ItemPlace/Hands/H1.global_position = fitem.get_node("Sprite/Hp1").global_position
+	$ItemPlace/Hands/H2.global_position = fitem.get_node("Sprite/Hp2").global_position
 @rpc("any_peer", "call_local","reliable") 
 func use_item(id):
 	if id == -1:
@@ -180,9 +182,10 @@ func use_item(id):
 	else:
 		item.try_use()
 func drop_item():
-	Mapa.si.spawn_drop.rpc_id(1,item_id,$ItemPlace.global_position,!$Sprite.flip_h)
+	Game.si.spawn_drop.rpc_id(1,item_id,$ItemPlace.global_position,!$Sprite.flip_h)
+	remove_item()
 	remove_item.rpc()
-@rpc("any_peer", "call_local","reliable") 
+@rpc("any_peer", "call_remote","reliable") 
 func remove_item():
 	$ItemPlace/Hands/H2.position = Vector2(8,0)
 	$ItemPlace/Hands/H1.position = Vector2(-8,0)
@@ -196,13 +199,9 @@ func remove_item():
 			$ItemPlace.get_child(i).queue_free()
 			i -= 1
 
-@rpc("any_peer", "call_local","reliable") 
-func interact(finteracted : String):
-	var interacted_target = Mapa.si.get_node(finteracted)
-	interacted_target.use(self)
 @rpc("call_local","any_peer","reliable")
 func respawn(spawn):
-	global_position = Mapa.get_spawn(spawn)
+	global_position = Game.get_spawn(spawn)
 	mudar_vida(100)
 	external_vel = 0
 	velocity = Vector2.ZERO
@@ -222,12 +221,14 @@ func mudar_vidaRPC(valor):
 	$HealthBar.value = vida
 	if vida == 0:
 		visible = false
-		$Hitbox/CollisionShape2D.disabled = true
+		$Hitbox/CollisionShape2D.call_deferred("set_disabled", true)
 		move_reset()
-		if is_multiplayer_authority():
-			var countdown = Mapa.create_countdown("Morreu",self)
-			countdown.acabou.connect(func(): respawn.rpc(randi() % Mapa.drop_quant))
+		if Game.can_respawn == false:
+			Game.si.playergone.rpc_id(1,name)
+		if is_multiplayer_authority() && Game.can_respawn == true:
+			var countdown = Game.si.create_countdown("Morreu",3,self)
+			countdown.acabou.connect(func(): respawn.rpc(randi() % Game.spawn_quant))
 func _on_soco_em_alguem(body):
-	if body is HurtBox && body.get_owner() != self:
-		body.change_life(-10)
+	if body is HurtBox && body.get_owner() != self && Game.can_punch == true:
+		body.change_life(-3)
 		body.knockback(global_position + Vector2(0,3),100)

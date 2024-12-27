@@ -6,7 +6,8 @@ var port = 2012
 var host
 var peer
 signal hide_ui
-
+var spawn_pos
+static var player_list = []
 func _ready():
 	multiplayer.peer_connected.connect(peer_connected)
 	multiplayer.peer_disconnected.connect(peer_disconnected)
@@ -21,6 +22,8 @@ func peer_disconnected(id):
 	var player = get_node_or_null(str(id))
 	if player:
 		player.queue_free()
+		if player.visible == true:
+			player_list.erase(id)
 #chamado só em clients
 func connected_to_server():
 	get_game_status.rpc_id(1,multiplayer.get_unique_id())
@@ -38,7 +41,7 @@ func _on_host_pressed():
 	multiplayer.multiplayer_peer = peer
 	$"../CanvasLayer/MenuDono".visible = true
 	hide_ui.emit()
-	add_player(1)
+	add_player(1,randi() % Game.spawn_quant)
 func _on_join_pressed():
 	peer = ENetMultiplayerPeer.new()
 	if $"../CanvasLayer/MenuInicial/Panel/Container/Ip".text.is_empty():
@@ -51,19 +54,29 @@ func _on_join_pressed():
 		multiplayer.multiplayer_peer = peer
 
 @rpc("any_peer","call_local","reliable")
-func add_player(id,spawn = 0):
-	var player : Cara = player_scene.instantiate()
-	player.name = str(id);
-	call_deferred("add_child", player)
-	player.ready.connect(func(): get_tree().create_timer(0.01).timeout.connect(func (): player_pos.rpc_id(id,id,spawn)))
-	return player
+func add_player(id : int,spawn = 0):
+		player_list.append(id)
+		var player : Cara = player_scene.instantiate()
+		if id != 1:
+			att_pos.rpc_id(id,Game.get_spawn(spawn))
+		player.name = str(id);
+		add_child(player)
+		if id == 1:
+			while !player.is_inside_tree():
+				await get_tree().create_timer(0.1).timeout
+			player.global_position = Game.get_spawn(spawn)
+		return player
 @rpc("any_peer","reliable","call_local")
-func player_pos(id,spawn):
-	get_node(str(id)).global_position = Mapa.get_spawn(spawn)
+func att_pos(spawn):
+	spawn_pos = spawn
+	$"../MultiplayerSpawner".spawned.connect(player_pos) 
+func player_pos(node):
+	node.global_position = spawn_pos
+	$"../MultiplayerSpawner".spawned.disconnect(player_pos) 
+
 @rpc("any_peer","reliable")
 func get_game_status(id):
 	receive_game_status.rpc_id(id,game_stared)
-
 @rpc("any_peer","reliable")
 func receive_game_status(status):
 	if status:
@@ -71,7 +84,7 @@ func receive_game_status(status):
 		$"../CanvasLayer/MenuInicial".visible = true
 		return
 	hide_ui.emit()
-	add_player.rpc_id(1,multiplayer.get_unique_id())
+	add_player.rpc_id(1,multiplayer.get_unique_id(),randi() % Game.spawn_quant)
 
 
 func _on_start_game_pressed():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cxcuf7sebvpj5"]
+[gd_scene load_steps=11 format=3 uid="uid://cxcuf7sebvpj5"]
 
 [ext_resource type="Script" path="res://cenas/outros/camera_2d.gd" id="1_pqahw"]
 [ext_resource type="Script" path="res://scripts/Scenes/spawner.gd" id="1_yvxq5"]
@@ -6,14 +6,22 @@
 [ext_resource type="Script" path="res://cenas/mapas/mapa.gd" id="2_box7f"]
 [ext_resource type="PackedScene" uid="uid://bmoqioawll1gu" path="res://cenas/mapas/lobby.tscn" id="3_xjj56"]
 [ext_resource type="Script" path="res://cenas/outros/menu_dono.gd" id="5_ct1tx"]
-[ext_resource type="Script" path="res://scripts/Scenes/menu.gd" id="6_q8lro"]
+[ext_resource type="Script" path="res://scripts/Scenes/control.gd" id="6_q8lro"]
 [ext_resource type="Texture2D" uid="uid://clroevcjysjye" path="res://textures/player/cara.png" id="7_tnqdv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qtxpa"]
 bg_color = Color(0.327841, 0.243735, 0.173242, 1)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3y76a"]
+
 [node name="World" type="Node2D"]
 texture_filter = 1
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(3193, 1789)
+enabled = false
+zoom = Vector2(2, 2)
+script = ExtResource("1_pqahw")
 
 [node name="Mapa" type="Node2D" parent="."]
 script = ExtResource("2_box7f")
@@ -24,12 +32,6 @@ script = null
 [node name="Spawner" type="Node2D" parent="."]
 script = ExtResource("1_yvxq5")
 player_scene = ExtResource("2_4js1i")
-
-[node name="Camera" type="Camera2D" parent="."]
-position = Vector2(3193, 1789)
-enabled = false
-zoom = Vector2(2, 2)
-script = ExtResource("1_pqahw")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -176,6 +178,9 @@ spawn_path = NodePath("../Mapa")
 process_mode = 3
 _spawnable_scenes = PackedStringArray("res://cenas/outros/cara.tscn")
 spawn_path = NodePath("../Spawner")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_3y76a")
 
 [connection signal="hide_ui" from="Spawner" to="CanvasLayer/MenuInicial" method="_on_connected"]
 [connection signal="pressed" from="CanvasLayer/MenuDono/StartGame" to="Spawner" method="_on_start_game_pressed"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://b0hxr5rydtxqa"]
 
-[ext_resource type="Script" path="res://box.gd" id="1_mh828"]
+[ext_resource type="Script" path="res://cenas/props/box.gd" id="1_mh828"]
 [ext_resource type="Texture2D" uid="uid://8yrqf28e4lam" path="res://textures/props/caixa.png" id="2_mnska"]
 [ext_resource type="Script" path="res://hurtbox.gd" id="3_vwvh1"]
 

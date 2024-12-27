@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=4 uid="uid://t2gm5kdinv1s"]
+
+[ext_resource type="Script" path="res://cenas/outros/area_2d.gd" id="1_iknuv"]
+[ext_resource type="TileSet" uid="uid://b5i86fpa41r1w" path="res://tileset.tres" id="2_f5oxw"]
+[ext_resource type="PackedScene" uid="uid://b0hxr5rydtxqa" path="res://cenas/props/box.tscn" id="3_54pit"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_75w8b"]
+size = Vector2(13321, 645.5)
+
+[node name="Mapa" type="Node2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("1_iknuv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1269.5, 1114.25)
+shape = SubResource("RectangleShape2D_75w8b")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+z_index = -1
+scale = Vector2(0.75, 0.75)
+tile_map_data = PackedByteArray("AAAPABgAAgAAAAAAAAAQABgAAgAAAAAAAAARABgAAgAAAAAAAAASABgAAgAAAAAAAAATABgAAgAAAAAAAAAUABgAAgAAAAAAAAAVABgAAgAAAAAAAAAWABgAAgAAAAAAAAAXABgAAgAAAAAAAAAYABgAAgAAAAAAAAAZABgAAgAAAAAAAAAaABgAAgAAAAAAAAAbABgAAgAAAAAAAAAcABgAAgAAAAAAAAAdABgAAgAAAAAAAAAOABgAAgAAAAAAAAAcABkAAgAAAAAAAAAbABkAAgAAAAAAAAAaABkAAgAAAAAAAAAZABkAAgAAAAAAAAAYABkAAgAAAAAAAAAXABkAAgAAAAAAAAAWABkAAgAAAAAAAAAVABkAAgAAAAAAAAAUABkAAgAAAAAAAAATABkAAgAAAAAAAAASABkAAgAAAAAAAAARABkAAgAAAAAAAAAQABkAAgAAAAAAAAAPABkAAgAAAAAAAAAOABcAAgAAAAAAAAAPABcAAgAAAAAAAAAQABcAAgAAAAAAAAARABcAAgAAAAAAAAASABcAAgAAAAAAAAATABcAAgAAAAAAAAAUABcAAgAAAAAAAAAVABcAAgAAAAAAAAAWABcAAgAAAAAAAAAXABcAAgAAAAAAAAAYABcAAgAAAAAAAAAZABcAAgAAAAAAAAAaABcAAgAAAAAAAAAbABcAAgAAAAAAAAAcABcAAgAAAAAAAAAdABcAAgAAAAAAAAA=")
+tile_set = ExtResource("2_f5oxw")
+
+[node name="Spawns" type="Node2D" parent="."]
+position = Vector2(38, 256)
+
+[node name="Node2D" type="Node2D" parent="Spawns"]
+position = Vector2(340.201, 288.385)
+
+[node name="Node2D2" type="Node2D" parent="Spawns"]
+position = Vector2(415.352, 283.027)
+
+[node name="Node2D3" type="Node2D" parent="Spawns"]
+position = Vector2(561.271, 283.571)
+
+[node name="Node2D4" type="Node2D" parent="Spawns"]
+position = Vector2(650.659, 288.544)
+
+[node name="props" type="Node2D" parent="."]
+
+[node name="Box6" parent="props" instance=ExtResource("3_54pit")]
+position = Vector2(353.577, 537.9)
+item_id = 0
+
+[node name="Box8" parent="props" instance=ExtResource("3_54pit")]
+position = Vector2(707.648, 539.173)
+item_id = 0
+
+[node name="Box13" parent="props" instance=ExtResource("3_54pit")]
+position = Vector2(575.883, 540.018)
+item_id = 0
+
+[node name="Box11" parent="props" instance=ExtResource("3_54pit")]
+position = Vector2(482.625, 537.913)
+item_id = 0
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

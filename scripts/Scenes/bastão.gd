@@ -10,12 +10,10 @@ func use():
 func _on_area_2d_area_entered(area):
 	if area is HurtBox:
 		if area.get_parent() != IPlayer:
-			area.change_life(-20)
-			play_audio(bonk,0.8,1.2,true)
-			area.knockback($Trow.global_position,500)
-			#get_tree().create_timer(0.1).timeout.connect(resetar.bind(area))
-#func resetar(body):
-	#body.reset_ready = true
+			area.change_life(-8)
+			if area.get_parent() is Cara:
+				area.knockback($Trow.global_position,500)
+				play_audio(bonk,0.8,1.2,true)
 
 func _on_sprite_animation_finished():
 	item_ready = true

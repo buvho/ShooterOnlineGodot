@@ -70,19 +70,19 @@ texture = ExtResource("3_uuwi7")
 position = Vector2(19.8712, 0.264626)
 
 [node name="RayCast" type="RayCast2D" parent="Raycasts"]
-target_position = Vector2(100, 0)
+target_position = Vector2(200, 0)
 collision_mask = 12
 hit_from_inside = true
 collide_with_areas = true
 
 [node name="RayCast2" type="RayCast2D" parent="Raycasts"]
-target_position = Vector2(95, 15)
+target_position = Vector2(195, 20)
 collision_mask = 12
 hit_from_inside = true
 collide_with_areas = true
 
 [node name="RayCast3" type="RayCast2D" parent="Raycasts"]
-target_position = Vector2(95, -15)
+target_position = Vector2(195, 20)
 collision_mask = 12
 hit_from_inside = true
 collide_with_areas = true
