@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=4 uid="uid://cq2uq8vt5r16i"]
+[gd_scene load_steps=5 format=4 uid="uid://cq2uq8vt5r16i"]
 
 [ext_resource type="Script" path="res://cenas/outros/area_2d.gd" id="1_sido0"]
 [ext_resource type="TileSet" uid="uid://b5i86fpa41r1w" path="res://tileset.tres" id="2_uwh25"]
 [ext_resource type="PackedScene" uid="uid://b0hxr5rydtxqa" path="res://cenas/props/box.tscn" id="3_3rnoa"]
-[ext_resource type="PackedScene" uid="uid://bqac3rnk713ml" path="res://cenas/props/dropped_item.tscn" id="4_cum4o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_75w8b"]
 size = Vector2(13321, 645.5)
@@ -55,9 +54,5 @@ item_id = 4
 [node name="Box11" parent="props" instance=ExtResource("3_3rnoa")]
 position = Vector2(538.458, 318.992)
 item_id = 4
-
-[node name="Dropped_item" parent="props" instance=ExtResource("4_cum4o")]
-position = Vector2(1315.8, 538.988)
-item_id = 3
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

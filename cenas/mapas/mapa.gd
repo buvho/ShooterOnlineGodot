@@ -7,14 +7,14 @@ static var can_punch = true
 var loaded_map
 static var si : Node2D; 
 static var dropSC = load("res://cenas/props/dropped_item.tscn")
-static var maps = [preload("res://cenas/mapas/mapa1.tscn"),
-	preload("res://cenas/mapas/mapa2.tscn"),
-	preload("res://cenas/mapas/mapa3.tscn"),
-	preload("res://cenas/mapas/mapa4.tscn"),
-	preload("res://cenas/mapas/mapa5.tscn"),
-	preload("res://cenas/mapas/mapa6.tscn"),
-	preload("res://cenas/mapas/mapa7.tscn"),
-	preload("res://cenas/mapas/mapa8.tscn")
+static var maps = [("res://cenas/mapas/mapa1.tscn"),
+	("res://cenas/mapas/mapa2.tscn"),
+	("res://cenas/mapas/mapa3.tscn"),
+	("res://cenas/mapas/mapa4.tscn"),
+	("res://cenas/mapas/mapa5.tscn"),
+	("res://cenas/mapas/mapa6.tscn"),
+	("res://cenas/mapas/mapa7.tscn"),
+	("res://cenas/mapas/mapa8.tscn")
 ]
 
 
@@ -44,14 +44,14 @@ func load_map(id : int):
 	can_punch = false
 	can_respawn = false
 	for i in get_children():
-		i.queue_free()
-		await i.tree_exited
-	loaded_map = maps[id].instantiate()
-	add_child(loaded_map)
-	spawn_quant = get_child(0).get_node("Spawns").get_child_count()
+		i.free()
+	loaded_map = load(maps[id]).instantiate()
 	if multiplayer.get_unique_id() == 1:
-		load_players()
+		loaded_map.ready.connect(load_players)
+	add_child(loaded_map)
+	await loaded_map.ready
 func load_players():
+	spawn_quant = get_child(0).get_node("Spawns").get_child_count()
 	var players : Array
 	for p : Cara in si.get_parent().get_node("Spawner").get_children():
 		players.append(p.name.to_int())

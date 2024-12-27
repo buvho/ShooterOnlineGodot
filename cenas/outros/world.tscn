@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://cxcuf7sebvpj5"]
+[gd_scene load_steps=11 format=3 uid="uid://cxcuf7sebvpj5"]
 
+[ext_resource type="PackedScene" uid="uid://b0hxr5rydtxqa" path="res://cenas/props/box.tscn" id="1_l5mf0"]
 [ext_resource type="Script" path="res://cenas/outros/camera_2d.gd" id="1_pqahw"]
 [ext_resource type="Script" path="res://scripts/Scenes/spawner.gd" id="1_yvxq5"]
 [ext_resource type="PackedScene" uid="uid://bnnpguuu0553p" path="res://cenas/outros/cara.tscn" id="2_4js1i"]
@@ -14,6 +15,15 @@ bg_color = Color(0.327841, 0.243735, 0.173242, 1)
 
 [node name="World" type="Node2D"]
 texture_filter = 1
+
+[node name="Box" parent="." instance=ExtResource("1_l5mf0")]
+position = Vector2(-90, 272)
+
+[node name="Box2" parent="." instance=ExtResource("1_l5mf0")]
+position = Vector2(-124, 274)
+
+[node name="Box3" parent="." instance=ExtResource("1_l5mf0")]
+position = Vector2(-108, 241)
 
 [node name="Mapa" type="Node2D" parent="."]
 script = ExtResource("2_box7f")
@@ -173,7 +183,6 @@ _spawnable_scenes = PackedStringArray("res://cenas/props/dropped_item.tscn")
 spawn_path = NodePath("../Mapa")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-process_mode = 3
 _spawnable_scenes = PackedStringArray("res://cenas/outros/cara.tscn")
 spawn_path = NodePath("../Spawner")
 
