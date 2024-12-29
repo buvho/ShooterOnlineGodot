@@ -1,77 +1,77 @@
 [gd_scene load_steps=27 format=3 uid="uid://c7o1mf3rtxdkl"]
 
-[ext_resource type="Script" path="res://scripts/Scenes/bastão.gd" id="1_bwhhd"]
-[ext_resource type="Texture2D" uid="uid://d3fy8jmjp2met" path="res://textures/armas/Bastão.png" id="1_rsce4"]
-[ext_resource type="Texture2D" uid="uid://ill1duihcxjd" path="res://textures/armas/Bastãoanim.png" id="2_dl23l"]
-[ext_resource type="Texture2D" uid="uid://ccoojv3053oup" path="res://textures/armas/Bastãoanim2.png" id="3_kkq1u"]
-[ext_resource type="AudioStream" uid="uid://c172ku67trwml" path="res://Resources/bonk.wav" id="4_yv08b"]
+[ext_resource type="Script" path="res://scripts/Scenes/bastão.gd" id="1_nn6y6"]
+[ext_resource type="Texture2D" uid="uid://d3fy8jmjp2met" path="res://textures/armas/Bastão.png" id="2_livb1"]
+[ext_resource type="Texture2D" uid="uid://ill1duihcxjd" path="res://textures/armas/Bastãoanim.png" id="3_6wswm"]
+[ext_resource type="Texture2D" uid="uid://ccoojv3053oup" path="res://textures/armas/Bastãoanim2.png" id="4_robr5"]
+[ext_resource type="AudioStream" uid="uid://c172ku67trwml" path="res://Resources/bonk.wav" id="5_qgb3c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lnb7j"]
-atlas = ExtResource("2_dl23l")
+atlas = ExtResource("3_6wswm")
 region = Rect2(0, 0, 42, 62)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8ls0w"]
-atlas = ExtResource("2_dl23l")
+atlas = ExtResource("3_6wswm")
 region = Rect2(84, 0, 42, 62)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kcxos"]
-atlas = ExtResource("2_dl23l")
+atlas = ExtResource("3_6wswm")
 region = Rect2(126, 0, 42, 62)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aytyo"]
-atlas = ExtResource("2_dl23l")
+atlas = ExtResource("3_6wswm")
 region = Rect2(168, 0, 42, 62)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k5riv"]
-atlas = ExtResource("2_dl23l")
+atlas = ExtResource("3_6wswm")
 region = Rect2(210, 0, 42, 62)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rqry6"]
-atlas = ExtResource("2_dl23l")
+atlas = ExtResource("3_6wswm")
 region = Rect2(252, 0, 42, 62)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i3rch"]
-atlas = ExtResource("2_dl23l")
+atlas = ExtResource("3_6wswm")
 region = Rect2(294, 0, 42, 62)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ar4ni"]
-atlas = ExtResource("2_dl23l")
+atlas = ExtResource("3_6wswm")
 region = Rect2(336, 0, 42, 62)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gsydt"]
-atlas = ExtResource("2_dl23l")
+atlas = ExtResource("3_6wswm")
 region = Rect2(378, 0, 42, 62)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oi3gq"]
-atlas = ExtResource("2_dl23l")
+atlas = ExtResource("3_6wswm")
 region = Rect2(420, 0, 42, 62)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tneso"]
-atlas = ExtResource("3_kkq1u")
+atlas = ExtResource("4_robr5")
 region = Rect2(0, 0, 42, 62)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h3cli"]
-atlas = ExtResource("3_kkq1u")
+atlas = ExtResource("4_robr5")
 region = Rect2(84, 0, 42, 62)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_81uhr"]
-atlas = ExtResource("3_kkq1u")
+atlas = ExtResource("4_robr5")
 region = Rect2(126, 0, 42, 62)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8xvbs"]
-atlas = ExtResource("3_kkq1u")
+atlas = ExtResource("4_robr5")
 region = Rect2(168, 0, 42, 62)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cld8n"]
-atlas = ExtResource("3_kkq1u")
+atlas = ExtResource("4_robr5")
 region = Rect2(210, 0, 42, 62)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tddud"]
-atlas = ExtResource("3_kkq1u")
+atlas = ExtResource("4_robr5")
 region = Rect2(252, 0, 42, 62)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_se7et"]
-atlas = ExtResource("3_kkq1u")
+atlas = ExtResource("4_robr5")
 region = Rect2(294, 0, 42, 62)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_45jgl"]
@@ -180,9 +180,9 @@ _data = {
 
 [node name="Bastão" type="Node2D"]
 position = Vector2(2, 1)
-script = ExtResource("1_bwhhd")
+script = ExtResource("1_nn6y6")
 rotate_item = true
-texture = ExtResource("1_rsce4")
+texture = ExtResource("2_livb1")
 
 [node name="Trow" type="Node2D" parent="."]
 position = Vector2(-74.2624, 5.02597)
@@ -221,11 +221,13 @@ libraries = {
 }
 
 [node name="Bonk" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_yv08b")
+stream = ExtResource("5_qgb3c")
 volume_db = 10.0
 pitch_scale = 0.8
 
 [node name="Audio" type="AudioStreamPlayer2D" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="animation_finished" from="Sprite" to="." method="_on_sprite_animation_finished"]

@@ -6,6 +6,7 @@ static var can_respawn = true
 static var can_punch = true
 var loaded_map
 static var si : Node2D; 
+var janela = true
 static var dropSC = load("res://cenas/props/dropped_item.tscn")
 static var maps = [("res://cenas/mapas/mapa1.tscn"),
 	("res://cenas/mapas/mapa2.tscn"),
@@ -14,14 +15,14 @@ static var maps = [("res://cenas/mapas/mapa1.tscn"),
 	("res://cenas/mapas/mapa5.tscn"),
 	("res://cenas/mapas/mapa6.tscn"),
 	("res://cenas/mapas/mapa7.tscn"),
-	("res://cenas/mapas/mapa8.tscn")
+	("res://cenas/mapas/mapa8.tscn"),
+	("res://cenas/mapas/mapa9.tscn"),
+	("res://cenas/mapas/mapa10.tscn")
 ]
 
 
 func _ready():
 	si = self
-func _process(delta):
-	print(loaded_map)
 @rpc("any_peer","call_local","reliable")
 func spawn_drop(droped_item_id : int,pos : Vector2,flip : bool = false):
 	var drop = dropSC.instantiate()
@@ -94,3 +95,21 @@ static func get_spawn(n):
 	
 static func get_player(nome):
 	return si.get_parent().get_node("Spawner/" + nome)
+
+func play_audio(audio_file,pitchmin,pitchmax,audio_position,volume = 0):
+		var audio = AudioStreamPlayer2D.new()
+		audio.stream = audio_file
+		audio.pitch_scale = randf_range(pitchmin,pitchmax)
+		audio.volume_db = volume
+		get_parent().add_child(audio)
+		audio.global_position = audio_position
+		audio.play()
+		await audio.finished
+		audio.queue_free()
+func _physics_process(_delta):
+	if Input.is_action_just_pressed("janela"):
+		if janela == true:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		else: 
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		janela = !janela

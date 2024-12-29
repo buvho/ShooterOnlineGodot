@@ -1,14 +1,14 @@
 [gd_scene load_steps=11 format=3 uid="uid://cxcuf7sebvpj5"]
 
-[ext_resource type="PackedScene" uid="uid://b0hxr5rydtxqa" path="res://cenas/props/box.tscn" id="1_l5mf0"]
 [ext_resource type="Script" path="res://cenas/outros/camera_2d.gd" id="1_pqahw"]
 [ext_resource type="Script" path="res://scripts/Scenes/spawner.gd" id="1_yvxq5"]
 [ext_resource type="PackedScene" uid="uid://bnnpguuu0553p" path="res://cenas/outros/cara.tscn" id="2_4js1i"]
-[ext_resource type="Script" path="res://cenas/mapas/mapa.gd" id="2_box7f"]
+[ext_resource type="Script" path="res://cenas/mapas/game.gd" id="2_box7f"]
 [ext_resource type="PackedScene" uid="uid://bmoqioawll1gu" path="res://cenas/mapas/lobby.tscn" id="3_xjj56"]
 [ext_resource type="Script" path="res://cenas/outros/menu_dono.gd" id="5_ct1tx"]
 [ext_resource type="Script" path="res://scripts/Scenes/menu.gd" id="6_q8lro"]
 [ext_resource type="Texture2D" uid="uid://clroevcjysjye" path="res://textures/player/cara.png" id="7_tnqdv"]
+[ext_resource type="PackedScene" uid="uid://b0hxr5rydtxqa" path="res://cenas/props/box.tscn" id="9_eu6g2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qtxpa"]
 bg_color = Color(0.327841, 0.243735, 0.173242, 1)
@@ -16,19 +16,10 @@ bg_color = Color(0.327841, 0.243735, 0.173242, 1)
 [node name="World" type="Node2D"]
 texture_filter = 1
 
-[node name="Box" parent="." instance=ExtResource("1_l5mf0")]
-position = Vector2(-90, 272)
-
-[node name="Box2" parent="." instance=ExtResource("1_l5mf0")]
-position = Vector2(-124, 274)
-
-[node name="Box3" parent="." instance=ExtResource("1_l5mf0")]
-position = Vector2(-108, 241)
-
-[node name="Mapa" type="Node2D" parent="."]
+[node name="Game" type="Node2D" parent="."]
 script = ExtResource("2_box7f")
 
-[node name="Lobby" parent="Mapa" instance=ExtResource("3_xjj56")]
+[node name="Lobby" parent="Game" instance=ExtResource("3_xjj56")]
 script = null
 
 [node name="Spawner" type="Node2D" parent="."]
@@ -42,34 +33,6 @@ zoom = Vector2(2, 2)
 script = ExtResource("1_pqahw")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="MenuDono" type="Control" parent="CanvasLayer"]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("5_ct1tx")
-
-[node name="StartGame" type="Button" parent="CanvasLayer/MenuDono"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -39.0
-offset_top = -39.0
-offset_right = 826.0
-offset_bottom = 242.0
-grow_horizontal = 0
-grow_vertical = 0
-scale = Vector2(0.1, 0.1)
-focus_mode = 0
-theme_override_font_sizes/font_size = 200
-shortcut_feedback = false
-shortcut_in_tooltip = false
-text = "Começar"
 
 [node name="MenuInicial" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -178,18 +141,49 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 128
 placeholder_text = "IP"
 
+[node name="MenuDono" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_ct1tx")
+
+[node name="StartGame" type="Button" parent="CanvasLayer/MenuDono"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -39.0
+offset_top = -39.0
+offset_right = 826.0
+offset_bottom = 242.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.1, 0.1)
+focus_mode = 0
+theme_override_font_sizes/font_size = 200
+shortcut_feedback = false
+shortcut_in_tooltip = false
+text = "Começar"
+
 [node name="MultiplayerSpawner2" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://cenas/props/dropped_item.tscn")
-spawn_path = NodePath("../Mapa")
+spawn_path = NodePath("../Game")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://cenas/outros/cara.tscn")
 spawn_path = NodePath("../Spawner")
 
+[node name="Box" parent="." instance=ExtResource("9_eu6g2")]
+position = Vector2(41, 284)
+
 [connection signal="hide_ui" from="Spawner" to="CanvasLayer/MenuInicial" method="_on_connected"]
-[connection signal="pressed" from="CanvasLayer/MenuDono/StartGame" to="Spawner" method="_on_start_game_pressed"]
-[connection signal="pressed" from="CanvasLayer/MenuDono/StartGame" to="CanvasLayer/MenuDono" method="_on_start_game_pressed"]
 [connection signal="pressed" from="CanvasLayer/MenuInicial/Panel/PlayerEdit/<" to="CanvasLayer/MenuInicial" method="_on_left_pressed"]
 [connection signal="pressed" from="CanvasLayer/MenuInicial/Panel/PlayerEdit/>" to="CanvasLayer/MenuInicial" method="_on_right_pressed"]
 [connection signal="pressed" from="CanvasLayer/MenuInicial/Panel/Container/Join" to="Spawner" method="_on_join_pressed"]
 [connection signal="pressed" from="CanvasLayer/MenuInicial/Panel/Container/Host" to="Spawner" method="_on_host_pressed"]
+[connection signal="pressed" from="CanvasLayer/MenuDono/StartGame" to="Spawner" method="_on_start_game_pressed"]
+[connection signal="pressed" from="CanvasLayer/MenuDono/StartGame" to="CanvasLayer/MenuDono" method="_on_start_game_pressed"]

@@ -2,18 +2,20 @@ extends Item
 class_name Gun
 @export var damage = 25
 @export var knockback = 1000
+@export var recoil = 100
 @export var audio_file : AudioStreamMP3
 @export var pitchmin : float = 1
 @export var pitchmax : float = 1
 @export var linetime = 0.5
 func use():
 	item_ready = false
+	IPlayer.knockback($Raycasts.global_position,recoil)
 	$Sprite.play()
 	play_audio(audio_file,pitchmin,pitchmax)
 	for rayCast : RayCast2D in $Raycasts.get_children():
 		var target = rayCast.get_collider()
 		create_line(rayCast)
-		if target is HurtBox:
+		if target is HurtBox && target.get_parent() != IPlayer:
 			target.change_life(-damage)
 			target.knockback(rayCast.global_position,knockback)
 	gun_use()

@@ -1,16 +1,16 @@
 [gd_scene load_steps=8 format=3 uid="uid://cit7rx2i8c23t"]
 
-[ext_resource type="Script" path="res://scripts/Scenes/grapling_hook.gd" id="1_2od1t"]
-[ext_resource type="Texture2D" uid="uid://qju4rm13o40v" path="res://textures/armas/Grapling Hook/Grapling Hook.png" id="2_qw2bl"]
-[ext_resource type="AudioStream" uid="uid://b0yx1ywc452m7" path="res://Resources/Arroto.mp3" id="5_8gwqg"]
-[ext_resource type="Texture2D" uid="uid://dnkfauf320on0" path="res://textures/armas/Grapling Hook/Rope.png" id="5_e51f3"]
+[ext_resource type="Script" path="res://scripts/Scenes/grapling_hook.gd" id="1_26qw6"]
+[ext_resource type="Texture2D" uid="uid://qju4rm13o40v" path="res://textures/armas/Grapling Hook/Grapling Hook.png" id="2_sioeh"]
+[ext_resource type="AudioStream" uid="uid://b0yx1ywc452m7" path="res://Resources/Arroto.mp3" id="3_y4wg3"]
+[ext_resource type="Texture2D" uid="uid://dnkfauf320on0" path="res://textures/armas/Grapling Hook/Rope.png" id="4_4n5pk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nxm8i"]
-atlas = ExtResource("2_qw2bl")
+atlas = ExtResource("2_sioeh")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ekoge"]
-atlas = ExtResource("2_qw2bl")
+atlas = ExtResource("2_sioeh")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_uqp18"]
@@ -29,7 +29,7 @@ animations = [{
 
 [node name="Grapling Hook" type="Node2D"]
 position = Vector2(-3, 97)
-script = ExtResource("1_2od1t")
+script = ExtResource("1_26qw6")
 rotate_item = true
 id = 2
 
@@ -49,7 +49,7 @@ scale = Vector2(1.25, 1.25)
 
 [node name="Arroto" type="AudioStreamPlayer2D" parent="."]
 rotation = -1.0472
-stream = ExtResource("5_8gwqg")
+stream = ExtResource("3_y4wg3")
 volume_db = 10.0
 
 [node name="Ponto" type="Node2D" parent="."]
@@ -58,5 +58,5 @@ position = Vector2(10.1311, -97.0475)
 [node name="Hope" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0, 0, 0)
 width = 3.0
-texture = ExtResource("5_e51f3")
+texture = ExtResource("4_4n5pk")
 texture_mode = 1

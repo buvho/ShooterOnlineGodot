@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://crb4edtakoljt"]
+
+[node name="CPUParticles2D" type="CPUParticles2D"]
+modulate = Color(0.491072, 0.187551, 0.0657902, 1)
+emitting = false
+amount = 30
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(14, 15)
+direction = Vector2(10, -100)
+gravity = Vector2(0, 50)
+radial_accel_min = 3.0
+radial_accel_max = 30.0
+angle_min = -720.0
+scale_amount_min = 1.5
+scale_amount_max = 3.0

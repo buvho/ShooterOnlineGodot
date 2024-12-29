@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://cr7hk2ietgkkj"]
 
 [ext_resource type="Script" path="res://cenas/armas/Sniper.gd" id="1_5ff5w"]
-[ext_resource type="AudioStream" uid="uid://46kipk22f43d" path="res://Resources/Sniper.mp3" id="2_a21p4"]
+[ext_resource type="AudioStream" uid="uid://cduknyy4sy3hs" path="res://Resources/Sniper.mp3" id="2_a21p4"]
 [ext_resource type="Texture2D" uid="uid://dk1qyif1ljcbe" path="res://textures/armas/sniper_item.png" id="2_mxctn"]
 [ext_resource type="Texture2D" uid="uid://c7roa4a87lrls" path="res://textures/armas/Sniper-sheet.png" id="3_vr4vn"]
 
@@ -74,6 +74,7 @@ position = Vector2(0, 9)
 script = ExtResource("1_5ff5w")
 damage = 100
 knockback = 500
+recoil = 500
 audio_file = ExtResource("2_a21p4")
 pitchmax = 1.2
 linetime = 2.0
@@ -96,7 +97,7 @@ position = Vector2(-52, 19)
 scale = Vector2(1.25, 1.25)
 
 [node name="Lazer" type="Node2D" parent="."]
-position = Vector2(33, -5)
+position = Vector2(0, -5)
 
 [node name="RayCast" type="RayCast2D" parent="Lazer"]
 target_position = Vector2(800, 0)
@@ -114,7 +115,7 @@ default_color = Color(0.764706, 0, 0, 0.509804)
 position = Vector2(18.057, 0)
 
 [node name="RayCast" type="RayCast2D" parent="Raycasts"]
-position = Vector2(14.943, -5)
+position = Vector2(-18.057, -5)
 target_position = Vector2(800, 0)
 collision_mask = 12
 hit_from_inside = true

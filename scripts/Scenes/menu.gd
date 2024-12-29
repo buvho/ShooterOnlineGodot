@@ -12,8 +12,8 @@ static var skin_list = {
 4: ["res://textures/player/cara5.png","res://textures/player/Mão4.png"],
 5: ["res://textures/player/cara6.png","res://textures/player/Mão3.png"],
 6: ["res://textures/player/Blugget.png","res://textures/player/MãoNugget.png"]}
-static var n1 = ["Homem","Cr7","Neymar","Polonia","Socorro","Gyat","Jotao","Nerd","Messi","noobdog"]
-static var n2 = ["Rapido","DoSucesso","Horroroso","MeioGay","Goat","Gyat","Nhonho","Malvadeza","Gigantenorme","Ganhador","Perdedor"]
+static var n1 = ["Homem","Cr7","Neymar","Polonia","Socorro","Gyat","Jotao","Nerd","Messi","noobdog","nugget","Pdiddy","Zé"]
+static var n2 = ["Rapido","DoSucesso","Horroroso","Abeçoado","Goat","Gyat","Nhonho","Malvadeza","Gigantenorme","Obeso","Guloso"]
 @onready var display = $Panel/PlayerEdit/PanelContainer/TextureRect
 func on_ready():
 	multiplayer.connected_to_server.connect(_on_connected)

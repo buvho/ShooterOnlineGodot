@@ -1,73 +1,86 @@
-[gd_scene load_steps=12 format=3 uid="uid://dxi763kc5ax4w"]
+[gd_scene load_steps=13 format=3 uid="uid://dxi763kc5ax4w"]
 
 [ext_resource type="Script" path="res://cenas/armas/gun.gd" id="1_mbros"]
-[ext_resource type="Texture2D" uid="uid://b2mx6inapbmdb" path="res://textures/armas/Shotgunshoots.png" id="2_n2kud"]
-[ext_resource type="AudioStream" uid="uid://b1y83un0dul6b" path="res://Resources/Shotgun.mp3" id="3_ig1me"]
+[ext_resource type="AudioStream" uid="uid://dxf4crnf2ayms" path="res://Resources/Shotgun.mp3" id="3_ig1me"]
 [ext_resource type="Texture2D" uid="uid://n1063pnu4h3j" path="res://textures/armas/Shot_itempng.png" id="3_uuwi7"]
+[ext_resource type="Texture2D" uid="uid://wkokfritlmyh" path="res://textures/armas/shotgun..png" id="4_0043q"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_p2seq"]
-atlas = ExtResource("2_n2kud")
-region = Rect2(0, 0, 45, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_3fp7p"]
+atlas = ExtResource("4_0043q")
+region = Rect2(0, 0, 100, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qdsh8"]
-atlas = ExtResource("2_n2kud")
-region = Rect2(45, 0, 45, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_p61hp"]
+atlas = ExtResource("4_0043q")
+region = Rect2(100, 0, 100, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_02g3o"]
-atlas = ExtResource("2_n2kud")
-region = Rect2(90, 0, 45, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_sltss"]
+atlas = ExtResource("4_0043q")
+region = Rect2(200, 0, 100, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_46etx"]
-atlas = ExtResource("2_n2kud")
-region = Rect2(135, 0, 45, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_da5c7"]
+atlas = ExtResource("4_0043q")
+region = Rect2(300, 0, 100, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l4dkb"]
-atlas = ExtResource("2_n2kud")
-region = Rect2(180, 0, 45, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_gskh8"]
+atlas = ExtResource("4_0043q")
+region = Rect2(400, 0, 100, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_spp2f"]
-atlas = ExtResource("2_n2kud")
-region = Rect2(225, 0, 45, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ga3sa"]
+atlas = ExtResource("4_0043q")
+region = Rect2(500, 0, 100, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r7sei"]
+atlas = ExtResource("4_0043q")
+region = Rect2(600, 0, 100, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ccf0t"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p2seq")
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_3fp7p")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qdsh8")
+"texture": SubResource("AtlasTexture_p61hp")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_02g3o")
+"texture": SubResource("AtlasTexture_sltss")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_46etx")
+"texture": SubResource("AtlasTexture_da5c7")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_l4dkb")
+"texture": SubResource("AtlasTexture_gskh8")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_spp2f")
+"texture": SubResource("AtlasTexture_ga3sa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r7sei")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3fp7p")
 }],
 "loop": false,
 "name": &"Use",
-"speed": 10.0
+"speed": 8.0
 }]
 
 [node name="Shotgun" type="Node2D"]
+position = Vector2(1.11362, -5.0113)
 script = ExtResource("1_mbros")
 damage = 34
 knockback = 100
+recoil = 200
 audio_file = ExtResource("3_ig1me")
 pitchmin = 0.8
 pitchmax = 1.2
+linetime = 1.0
 rotate_item = true
 id = 4
 texture = ExtResource("3_uuwi7")
 
 [node name="Raycasts" type="Node2D" parent="."]
-position = Vector2(19.8712, 0.264626)
+position = Vector2(18.4681, 8.12186)
 
 [node name="RayCast" type="RayCast2D" parent="Raycasts"]
 target_position = Vector2(200, 0)
@@ -82,25 +95,25 @@ hit_from_inside = true
 collide_with_areas = true
 
 [node name="RayCast3" type="RayCast2D" parent="Raycasts"]
-target_position = Vector2(195, 20)
+target_position = Vector2(195, -20)
 collision_mask = 12
 hit_from_inside = true
 collide_with_areas = true
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-position = Vector2(5.4018, 1.80533)
+position = Vector2(-0.346067, 0.114513)
 sprite_frames = SubResource("SpriteFrames_ccf0t")
 animation = &"Use"
-frame = 5
+frame = 7
 frame_progress = 1.0
 
 [node name="Hp1" type="Sprite2D" parent="Sprite"]
-position = Vector2(5.29424, 0.0730715)
+position = Vector2(-4.60094, 12.4078)
 scale = Vector2(1.24264, 1.22794)
 
 [node name="Hp2" type="Sprite2D" parent="Sprite"]
-position = Vector2(-7.26591, 0.724283)
+position = Vector2(-24.7581, 12.8376)
 scale = Vector2(1.25, 1.25)
 
 [node name="Audio" type="AudioStreamPlayer2D" parent="."]

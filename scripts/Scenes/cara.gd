@@ -81,7 +81,6 @@ func movement():
 		if in_plataform:
 			if Input.is_action_pressed("up") && Input.is_action_pressed("down"):
 				position.y += 5
-
 		can_jump = true
 		if reset_ready:
 			move_reset()
@@ -104,20 +103,20 @@ func movement():
 			velocity.x = 0
 	if external_vel && is_on_floor():
 		reset_ready = true
-	if reset_ready == true && is_on_wall():
+	print(external_vel)
+	if is_on_wall():
 		external_vel = 0
-	else:
-		var vel = direction * accel
-		if (external_vel * vel) < 0:
-			if (abs(external_vel) > vel/10):
-				external_vel += vel/10
-				velocity.x = clamp(velocity.x + vel/10, -max_speed,max_speed) + external_vel
-			else:
-				friction = 200
-				external_vel = 0
-				velocity.x = vel - external_vel 
+	var vel = direction * accel
+	if (external_vel * vel) < 0:
+		if (abs(external_vel) > vel/10):
+			external_vel += vel/10
+			velocity.x = clamp(velocity.x + vel/10, -max_speed,max_speed) + external_vel
 		else:
-			velocity.x = clamp(velocity.x + vel,-max_speed,max_speed) + external_vel
+			friction = 200
+			external_vel = 0
+			velocity.x = vel - external_vel 
+	else:
+		velocity.x = clamp(velocity.x + vel,-max_speed,max_speed) + external_vel
 	move_and_slide()
 func move_reset():
 	max_speed = 300
@@ -187,6 +186,7 @@ func drop_item():
 	remove_item.rpc()
 @rpc("any_peer", "call_remote","reliable") 
 func remove_item():
+	move_reset()
 	$ItemPlace/Hands/H2.position = Vector2(8,0)
 	$ItemPlace/Hands/H1.position = Vector2(-8,0)
 	$ItemPlace.rotation = 0
@@ -230,5 +230,5 @@ func mudar_vidaRPC(valor):
 			countdown.acabou.connect(func(): respawn.rpc(randi() % Game.spawn_quant))
 func _on_soco_em_alguem(body):
 	if body is HurtBox && body.get_owner() != self && Game.can_punch == true:
-		body.change_life(-3)
+		body.change_life(-10)
 		body.knockback(global_position + Vector2(0,3),100)

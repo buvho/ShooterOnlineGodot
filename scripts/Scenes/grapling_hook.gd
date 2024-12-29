@@ -34,13 +34,11 @@ func _physics_process(_delta):
 			IPlayer.gravity = 0
 		else:
 			IPlayer.gravity = 0
-			IPlayer.accel = 50
-			IPlayer.max_speed = 200
 			IPlayer.friction = 0
-			var forca = 40
+			var forca = 20
 			lin.x = IPlayer.external_vel + ($Ponto.global_position.direction_to(hook.global_position)).x * forca
 			lin.y = IPlayer.velocity.y + ($Ponto.global_position.direction_to(hook.global_position)).y * forca
-			lin = lin.limit_length(700)
+			lin = lin.limit_length(500)
 			IPlayer.external_vel = lin.x
 			IPlayer.velocity.y = lin.y
 func _on_foi():

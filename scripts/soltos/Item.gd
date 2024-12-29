@@ -1,7 +1,7 @@
 extends Node2D
 class_name Item
 static var IdList = [
-"res://cenas/armas/bastão.tscn", # 0
+"res://cenas/armas/bastao.tscn", # 0
 "res://cenas/armas/garrafa.tscn", 
 "res://cenas/armas/grapling_hook.tscn",
 "res://cenas/armas/pistol.tscn",
@@ -44,13 +44,14 @@ func _process(_delta):
 	hands.get_node("H1").global_position = get_node("Sprite/Hp1").global_position
 	hands.get_node("H2").global_position = get_node("Sprite/Hp2").global_position
 
-func play_audio(audio_file,pitchmin,pitchmax,unique = false):
-		if unique == true && last_audio:
+func play_audio(audio_file,pitchmin,pitchmax,volume = 0,unique = false):
+		if unique && last_audio:
 			last_audio.queue_free()
 		var audio = AudioStreamPlayer2D.new()
 		last_audio = audio
 		audio.stream = audio_file
 		audio.pitch_scale = randf_range(pitchmin,pitchmax)
+		audio.volume_db = volume
 		get_parent().add_child(audio)
 		audio.play()
 		await audio.finished
